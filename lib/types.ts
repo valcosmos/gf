@@ -1,4 +1,4 @@
-import type { PropType } from "vue"
+import type { DefineComponent, PropType } from 'vue'
 
 export enum SchemaTypes {
   'NUMBER' = 'number',
@@ -20,7 +20,7 @@ export interface Schema {
   format?: string
   default?: any
   properties?: {
-    [key: string]: Schema | { $ref: string }
+    [key: string]: Schema
   }
   items?: Schema | Schema[] | SchemaRef
   dependencies?: {
@@ -46,5 +46,12 @@ export const FieldPropsDefine = {
   onChange: {
     type: Function as PropType<(v: any) => void>,
     required: true
+  },
+  rootSchema: {
+    type: Object as PropType<Schema>,
+    required: true
   }
 } as const
+
+
+export type CommonFieldDefine = DefineComponent<typeof FieldPropsDefine>

@@ -1,18 +1,10 @@
 /* eslint no-use-before-define: 0 */
 
-import {
-  defineComponent,
-  ref,
-  onMounted,
-  watch,
-  onBeforeUnmount,
-  shallowReadonly,
-  shallowRef
-} from 'vue'
+import { defineComponent, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 
 import * as Monaco from 'monaco-editor'
 
-import type { PropType, Ref } from 'vue'
+import type { PropType } from 'vue'
 import { createUseStyles } from 'vue-jss'
 
 const useStyles = createUseStyles({
@@ -70,7 +62,6 @@ export default defineComponent({
       }))
 
       _subscription = editor.onDidChangeModelContent((event) => {
-        console.log('--------->', __prevent_trigger_change_event)
         if (!__prevent_trigger_change_event) {
           props.onChange(editor.getValue(), event)
         }
@@ -78,7 +69,9 @@ export default defineComponent({
     })
 
     onBeforeUnmount(() => {
-      if (_subscription) _subscription.dispose()
+      if (_subscription) {
+        _subscription.dispose()
+      }
     })
 
     watch(
