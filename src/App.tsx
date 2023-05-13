@@ -128,7 +128,7 @@ export default defineComponent({
       const classes = classesRef.value
       const selected = selectedRef.value
 
-      console.log(methodRef)
+
 
       return (
         // <StyleThemeProvider>
