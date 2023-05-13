@@ -1,3 +1,5 @@
+import type { PropType } from "vue"
+
 export enum SchemaTypes {
   'NUMBER' = 'number',
   'INTEGER' = 'integer',
@@ -7,7 +9,9 @@ export enum SchemaTypes {
   'BOOLEAN' = 'boolean'
 }
 
-interface SchemaRef { $ref: string }
+interface SchemaRef {
+  $ref: string
+}
 
 // type Schema = any
 export interface Schema {
@@ -30,3 +34,17 @@ export interface Schema {
   additionalProperties?: any
   additionalItems?: Schema
 }
+
+export const FieldPropsDefine = {
+  schema: {
+    type: Object as PropType<Schema>,
+    required: true
+  },
+  value: {
+    required: true
+  },
+  onChange: {
+    type: Function as PropType<(v: any) => void>,
+    required: true
+  }
+} as const

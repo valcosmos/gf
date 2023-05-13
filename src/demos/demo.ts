@@ -1,7 +1,8 @@
 export default {
   name: 'Demo',
   schema: {
-    type: 'string',
-
-  }
+    type: 'string'
+  },
+  uiSchema: {},
+  default: 'Cupid'
 }
