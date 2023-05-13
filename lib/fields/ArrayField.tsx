@@ -1,4 +1,5 @@
 import { defineComponent } from 'vue'
+import SelectionWidget from '../widgets/SelectionWidget'
 import { FieldPropsDefine, type Schema } from '../types'
 import { useVJSFContext } from './context'
 import ArrayItemWrapper from './ArrayItemWrapper'
@@ -109,8 +110,12 @@ export default defineComponent({
             </ArrayItemWrapper>
           )
         })
+      } else {
+        const enumOptions = (schema as any).items.enum
+        const options = enumOptions.map((e: any) => ({ key: e, value: e }))
+        return <SelectionWidget onChange={props.onChange} value={props.value} options={options} />
       }
-      return <div></div>
+      // return <div></div>
     }
   }
 })
