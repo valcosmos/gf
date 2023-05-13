@@ -1,6 +1,5 @@
 import { defineComponent, h } from 'vue'
 import { shallowMount } from '@vue/test-utils'
-import { describe, expect, it } from 'vitest'
 
 const HelloWorld = defineComponent({
   name: 'HelloWorld',
