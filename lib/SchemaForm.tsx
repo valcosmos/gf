@@ -1,5 +1,6 @@
-import { type PropType, defineComponent, h } from 'vue'
-import { type Schema, SchemaTypes } from './types'
+import { type PropType, defineComponent } from 'vue'
+import { type Schema } from './types'
+import SchemaItem from './SchemaItem'
 
 export default defineComponent({
   name: 'SchemaForm',
@@ -17,17 +18,12 @@ export default defineComponent({
     }
   },
   setup(props, { slots }) {
+    const handleChange = (v: any) => {
+      props.onChange(v)
+    }
     return () => {
-      const schema = props.schema
-      const type = schema?.type
-
-      switch (type) {
-        case SchemaTypes.STRING: {
-          return <input type="text" />
-        }
-      }
-
-      return h('div', 'this is form')
+      const { schema, value } = props
+      return <SchemaItem schema={schema} value={value} onChange={handleChange} />
     }
   }
 })
