@@ -1,6 +1,7 @@
 import { defineComponent } from 'vue'
 import { FieldPropsDefine, type Schema } from '../types'
 import { useVJSFContext } from './context'
+import ArrayItemWrapper from './ArrayItemWrapper'
 
 /**
  * {
@@ -22,10 +23,46 @@ export default defineComponent({
   setup(props) {
     const context = useVJSFContext()
 
-    const handleMultiTypeChange = (v: any, index: number) => {
+    const handleArrayItemChange = (v: any, index: number) => {
       const { value } = props
       const arr = Array.isArray(value) ? value : []
       arr[index] = v
+      props.onChange(arr)
+    }
+
+    const handleAdd = (index: number) => {
+      const { value } = props
+      const arr = Array.isArray(value) ? value : []
+      arr.splice(index + 1, 0, undefined)
+      props.onChange(arr)
+    }
+
+    const handleDelete = (index: number) => {
+      const { value } = props
+      const arr = Array.isArray(value) ? value : []
+      arr.splice(index, 1)
+      props.onChange(arr)
+    }
+    const handleUp = (index: number) => {
+      const { value } = props
+
+      if (index === 0) {
+        return
+      }
+      const arr = Array.isArray(value) ? value : []
+      const item = arr.splice(index, 1)
+      arr.splice(index - 1, 0, item[0])
+      props.onChange(arr)
+    }
+    const handleDown = (index: number) => {
+      const { value } = props
+      const arr = Array.isArray(value) ? value : []
+
+      if (index === arr.length - 1) {
+        return
+      }
+      const item = arr.splice(index, 1)
+      arr.splice(index + 1, 0, item[0])
       props.onChange(arr)
     }
 
@@ -35,6 +72,7 @@ export default defineComponent({
       const SchemaItem = context.SchemaItem
 
       const isMultiType = Array.isArray(schema.items)
+      const isSelect = schema.items && (schema.items as any).enum
 
       if (isMultiType) {
         const items: Schema[] = schema.items as any
@@ -46,11 +84,33 @@ export default defineComponent({
             key={index}
             rootSchema={rootSchema}
             value={arr[index]}
-            onChange={(v) => handleMultiTypeChange(v, index)}
+            onChange={(v) => handleArrayItemChange(v, index)}
           />
         ))
+      } else if (!isSelect) {
+        console.log(111)
+        const arr = Array.isArray(value) ? value : []
+        return arr.map((v: any, index: number) => {
+          return (
+            <ArrayItemWrapper
+              index={index}
+              onAdd={handleAdd}
+              onDelete={handleDelete}
+              onUp={handleUp}
+              onDown={handleDown}
+            >
+              <SchemaItem
+                schema={schema.items as Schema}
+                value={v}
+                key={index}
+                rootSchema={rootSchema}
+                onChange={(v) => handleArrayItemChange(v, index)}
+              />
+            </ArrayItemWrapper>
+          )
+        })
       }
-      return <div>11</div>
+      return <div></div>
     }
   }
 })
