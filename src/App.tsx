@@ -1,4 +1,4 @@
-import type { Ref} from 'vue';
+import type { Ref } from 'vue'
 import { defineComponent, reactive, ref, watchEffect } from 'vue'
 import { createUseStyles } from 'vue-jss'
 
@@ -6,7 +6,6 @@ import SchemaForm from '../lib'
 import MonacoEditor from './components/MonacoEditor'
 
 import demos from './demos'
-
 
 // TODO: 在lib中export
 type Schema = any
@@ -127,8 +126,6 @@ export default defineComponent({
     return () => {
       const classes = classesRef.value
       const selected = selectedRef.value
-
-
 
       return (
         // <StyleThemeProvider>
