@@ -19,7 +19,10 @@ describe('JSONSchemaForm', () => {
     const numberField = wrapper.findComponent(NumberField)
     expect(numberField.exists()).toBeTruthy()
 
-    await numberField.props('onChange')('123')
-    expect(value).toBe('123')
+    // await numberField.props('onChange')('123')
+    const input = numberField.find('input')
+    input.element.value = '123'
+    input.trigger('input')
+    expect(value).toBe(123)
   })
 })
