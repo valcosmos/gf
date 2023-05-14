@@ -89,7 +89,6 @@ export default defineComponent({
           />
         ))
       } else if (!isSelect) {
-        console.log(111)
         const arr = Array.isArray(value) ? value : []
         return arr.map((v: any, index: number) => {
           return (

@@ -56,7 +56,7 @@ describe('ObjectField', () => {
     expect(value.age).toEqual(1)
   })
 
-  it('should render properties to correct fields', async () => {
+  it('update string field in object field', async () => {
     let value: any = {
       name: '123'
     }
