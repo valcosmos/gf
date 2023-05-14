@@ -1,34 +1,25 @@
-import { defineComponent, h } from 'vue'
-import { shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
+import JSONSchemaForm, { NumberField } from '../lib'
 
-const HelloWorld = defineComponent({
-  name: 'HelloWorld',
-  props: {
-    msg: String,
-  },
-  setup(props) {
-    return () => {
-      return h('div', props.msg)
-    }
-  },
-})
-
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
-      props: { msg },
+describe('JSONSchemaForm', () => {
+  it('should render correct number field', async () => {
+    let value = ''
+    const wrapper = mount(JSONSchemaForm, {
+      props: {
+        schema: {
+          type: 'number'
+        },
+        value,
+        onChange: (v: string) => {
+          value = v
+        }
+      }
     })
-    expect(wrapper.text()).toMatch(msg)
-  })
-})
 
-test('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
-      props: { msg },
-    })
-    expect(wrapper.text()).toMatch(msg)
+    const numberField = wrapper.findComponent(NumberField)
+    expect(numberField.exists()).toBeTruthy()
+
+    await numberField.props('onChange')('123')
+    expect(value).toBe('123')
   })
 })

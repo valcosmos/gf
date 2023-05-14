@@ -18,7 +18,7 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props, { slots }) {
+  setup(props) {
     const handleChange = (v: any) => {
       props.onChange(v)
     }

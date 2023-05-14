@@ -20,9 +20,9 @@
     "json-schema-merge-allof": "^0.8.1",
     "jsonpointer": "^5.0.1",
     "lodash.union": "^4.6.0",
-    "pinia": "^2.0.36",
-    "vue": "^3.3.2",
-    "vue-router": "^4.2.0"
+    "pinia": "^2.0.35",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.6",
@@ -32,12 +32,12 @@
     "@types/json-schema-merge-allof": "^0.6.1",
     "@types/lodash.union": "^4.6.7",
     "@types/node": "^20.1.4",
-    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue": "^4.2.1",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vue/eslint-config-prettier": "^7.1.0",
     "@vue/eslint-config-typescript": "^11.0.3",
     "@vue/test-utils": "^2.3.2",
-    "@vue/tsconfig": "^0.4.0",
+    "@vue/tsconfig": "^0.3.2",
     "eslint": "^8.40.0",
     "eslint-plugin-vue": "^9.12.0",
     "jsdom": "^22.0.0",
