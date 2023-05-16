@@ -25,16 +25,34 @@ export default defineConfig({
     ]
   },
   build: {
+    lib: {
+      // entry: ['./lib/index.ts', './lib/theme-default/index.tsx'],
+      // name: 'gf',
+      // fileName: 'gf'
+      entry: {
+        gf: './lib/index.ts',
+        theme: './lib/theme-default/index.tsx'
+      }
+    },
     rollupOptions: {
+      external: ['vue'],
       output: {
-        manualChunks: {
-          jsonWorker: [`${prefix}/language/json/json.worker`],
-          cssWorker: [`${prefix}/language/css/css.worker`],
-          htmlWorker: [`${prefix}/language/html/html.worker`],
-          tsWorker: [`${prefix}/language/typescript/ts.worker`],
-          editorWorker: [`${prefix}/editor/editor.worker`]
+        // Provide global variables to use in the UMD build
+        // for externalized deps
+        globals: {
+          vue: 'Vue'
         }
       }
+      // input: './lib/index.ts',
+      // output: {
+      //   manualChunks: {
+      //     jsonWorker: [`${prefix}/language/json/json.worker`],
+      //     cssWorker: [`${prefix}/language/css/css.worker`],
+      //     htmlWorker: [`${prefix}/language/html/html.worker`],
+      //     tsWorker: [`${prefix}/language/typescript/ts.worker`],
+      //     editorWorker: [`${prefix}/editor/editor.worker`]
+      //   }
+      // }
     }
   }
 })
