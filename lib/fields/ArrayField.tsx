@@ -1,5 +1,6 @@
 import { defineComponent } from 'vue'
-import SelectionWidget from '../widgets/SelectionWidget'
+
+// import SelectionWidget from '../widgets/SelectionWidget'
 import { FieldPropsDefine, type Schema } from '../types'
 import { useVJSFContext } from './context'
 import ArrayItemWrapper from './ArrayItemWrapper'
@@ -71,6 +72,7 @@ export default defineComponent({
       const { schema, rootSchema, value } = props
 
       const SchemaItem = context.SchemaItem
+      const SelectionWidget = context.theme.widgets.SelectionWidget
 
       const isMultiType = Array.isArray(schema.items)
       const isSelect = schema.items && (schema.items as any).enum

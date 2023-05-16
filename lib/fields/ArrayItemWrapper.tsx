@@ -46,6 +46,7 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     const classesRef = useStyles()
+        
     return () => {
       const classes = classesRef.value
       return (
@@ -54,9 +55,15 @@ export default defineComponent({
             <button class={classes.action} onClick={() => props.onAdd(props.index)}>
               新增
             </button>
-            <button class={classes.action} onClick={() => props.onDelete(props.index)}>删除</button>
-            <button class={classes.action} onClick={() => props.onUp(props.index)}>上移</button>
-            <button class={classes.action} onClick={() => props.onDown(props.index)}>下移</button>
+            <button class={classes.action} onClick={() => props.onDelete(props.index)}>
+              删除
+            </button>
+            <button class={classes.action} onClick={() => props.onUp(props.index)}>
+              上移
+            </button>
+            <button class={classes.action} onClick={() => props.onDown(props.index)}>
+              下移
+            </button>
           </div>
 
           <div class={classes.content}>{slots.default?.()}</div>

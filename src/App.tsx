@@ -3,9 +3,11 @@ import { defineComponent, reactive, ref, watchEffect } from 'vue'
 import { createUseStyles } from 'vue-jss'
 
 import SchemaForm from '../lib'
+import themeDefault from '../lib/theme-default'
 import MonacoEditor from './components/MonacoEditor'
 
 import demos from './demos'
+
 
 // TODO: 在lib中export
 type Schema = any
@@ -171,7 +173,12 @@ export default defineComponent({
               </div>
             </div>
             <div class={classes.form}>
-              <SchemaForm schema={demo.schema} onChange={handleChange} value={demo.data} />
+              <SchemaForm
+                theme={themeDefault as any}
+                schema={demo.schema}
+                onChange={handleChange}
+                value={demo.data}
+              />
               {/* <SchemaForm
                 schema={demo.schema!}
                 uiSchema={demo.uiSchema!}

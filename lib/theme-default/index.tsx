@@ -1,6 +1,10 @@
-import { defineComponent } from "vue";
+import SelectionWidget from "./SelectionWidget";
 
-export default defineComponent({
-  
-  
-})
+
+export default {
+  widgets: {
+    SelectionWidget,
+    TextWidget: SelectionWidget,
+    NumberWidget: SelectionWidget
+  }
+}
