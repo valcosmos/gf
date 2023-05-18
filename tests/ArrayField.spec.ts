@@ -1,9 +1,10 @@
 import { mount } from '@vue/test-utils'
-import SchemaForm, { ArrayField, NumberField, SelectionWidget, StringField } from 'lib'
+import { ArrayField, NumberField, SelectionWidget, StringField } from 'lib'
+import TestComponent from './utils/TestComponent'
 
 describe('ArrayField', () => {
   it('should render multi type', () => {
-    const wrapper = mount(SchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
@@ -23,7 +24,7 @@ describe('ArrayField', () => {
   })
 
   it('should render single type', () => {
-    const wrapper = mount(SchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
@@ -42,7 +43,7 @@ describe('ArrayField', () => {
   })
 
   it('should render the selection of array', () => {
-    const wrapper = mount(SchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
