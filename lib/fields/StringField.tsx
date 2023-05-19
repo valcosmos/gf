@@ -1,9 +1,8 @@
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name:'StringField',
-  setup () {
-
-    return ()=> <div>string field</div>
-   }
+  name: 'StringField',
+  setup() {
+    return () => <div>string field</div>
+  },
 })

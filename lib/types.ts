@@ -6,7 +6,7 @@ export enum SchemaTypes {
   'STRING' = 'string',
   'OBJECT' = 'object',
   'ARRAY' = 'array',
-  'BOOLEAN' = 'boolean'
+  'BOOLEAN' = 'boolean',
 }
 
 interface SchemaRef {
@@ -38,19 +38,19 @@ export interface Schema {
 export const FieldPropsDefine = {
   schema: {
     type: Object as PropType<Schema>,
-    required: true
+    required: true,
   },
   value: {
-    required: true
+    required: true,
   },
   onChange: {
     type: Function as PropType<(v: any) => void>,
-    required: true
+    required: true,
   },
   rootSchema: {
     type: Object as PropType<Schema>,
-    required: true
-  }
+    required: true,
+  },
 } as const
 
 export type CommonFieldDefine = DefineComponent<typeof FieldPropsDefine>
@@ -59,28 +59,28 @@ export const CommonWidgetPropsDefine = {
   value: {},
   onChange: {
     type: Function as PropType<(v: any) => void>,
-    required: true
-  }
+    required: true,
+  },
 } as const
 
 export const SelectWidgetPropsDefine = {
   ...CommonWidgetPropsDefine,
   options: {
     type: Array as PropType<{ key: string; value: any }[]>,
-    required: true
-  }
+    required: true,
+  },
 } as const
 
 export type CommonWidgetDefine = DefineComponent<typeof CommonWidgetPropsDefine, {}, {}>
 export type SelectionWidgetDefine = DefineComponent<typeof SelectWidgetPropsDefine, {}, {}>
 
 export enum SelectionWidgetNames {
-  SelectionWidget = 'SelectionWidget'
+  SelectionWidget = 'SelectionWidget',
 }
 
 export enum CommonWidgetNames {
   TextWidget = 'TextWidget',
-  NumberWidget = 'NumberWidget'
+  NumberWidget = 'NumberWidget',
 }
 /**
  * define theme
