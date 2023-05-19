@@ -1,21 +1,25 @@
 <script setup lang="ts">
-import { FieldPropsDefine } from '../types'
+import { CommonWidgetNames, FieldPropsDefine } from '../types'
+import { getWidget } from '../theme'
 
 const props = defineProps(FieldPropsDefine)
 
-function handleChange (e:any) { 
-  const value = Number(e.target.value)
-  if (value && !isNaN(value)) {
-    props.onChange(value)
-  } else { 
+function handleChange(v: string) {
+  const value = Number(v)
+  if (isNaN(value))
     props.onChange(undefined)
-  }
+
+  else
+    props.onChange(value)
 }
 
+const NumberWidget = getWidget(CommonWidgetNames.NumberWidget)
+// <input type="number" :value="value" @input="handleChange">
+const { schema, rootSchema, ...rest } = props
 </script>
 
 <template>
-  <input type="number" :value="value" @input="handleChange" />
+  <NumberWidget v-bind="rest" @on-change="handleChange" />
 </template>
 
 <style scoped></style>
