@@ -8,7 +8,6 @@ import MonacoEditor from './components/MonacoEditor'
 
 import demos from './demos'
 
-
 // TODO: 在lib中export
 type Schema = any
 type UISchema = any
@@ -23,32 +22,32 @@ const useStyles = createUseStyles({
     flexDirection: 'column',
     height: '100%',
     width: '1200px',
-    margin: '0 auto'
+    margin: '0 auto',
   },
   menu: {
-    marginBottom: 20
+    marginBottom: 20,
   },
   code: {
     width: 700,
-    flexShrink: 0
+    flexShrink: 0,
   },
   codePanel: {
     minHeight: 400,
-    marginBottom: 20
+    marginBottom: 20,
   },
   uiAndValue: {
     display: 'flex',
     justifyContent: 'space-between',
     '& > *': {
-      width: '46%'
-    }
+      width: '46%',
+    },
   },
   content: {
-    display: 'flex'
+    display: 'flex',
   },
   form: {
     padding: '0 20px',
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
     appearance: 'none',
@@ -59,16 +58,16 @@ const useStyles = createUseStyles({
     padding: 15,
     borderRadius: 5,
     '&:hover': {
-      background: '#efefef'
-    }
+      background: '#efefef',
+    },
   },
   menuSelected: {
     background: '#337ab7',
     color: '#fff',
     '&:hover': {
-      background: '#337ab7'
-    }
-  }
+      background: '#337ab7',
+    },
+  },
 })
 
 export default defineComponent({
@@ -88,7 +87,7 @@ export default defineComponent({
       uiSchema: {},
       schemaCode: '',
       dataCode: '',
-      uiSchemaCode: ''
+      uiSchemaCode: '',
     })
 
     watchEffect(() => {
@@ -125,6 +124,8 @@ export default defineComponent({
     const handleDataChange = (v: string) => handleCodeChange('data', v)
     const handleUISchemaChange = (v: string) => handleCodeChange('uiSchema', v)
 
+    const contextRef = ref()
+
     return () => {
       const classes = classesRef.value
       const selected = selectedRef.value
@@ -140,7 +141,7 @@ export default defineComponent({
                 <button
                   class={{
                     [classes.menuButton]: true,
-                    [classes.menuSelected]: index === selected
+                    [classes.menuSelected]: index === selected,
                   }}
                   onClick={() => (selectedRef.value = index)}
                 >
@@ -174,8 +175,14 @@ export default defineComponent({
             </div>
             <div class={classes.form}>
               <ThemeProvider theme={themeDefault}>
-                <SchemaForm schema={demo.schema} onChange={handleChange} value={demo.data} />
+                <SchemaForm
+                  schema={demo.schema}
+                  onChange={handleChange}
+                  value={demo.data}
+                  contextRef={contextRef}
+                />
               </ThemeProvider>
+              <button onClick={() => contextRef.value.doValidate()}>校验</button>
               {/* <SchemaForm
                 schema={demo.schema!}
                 uiSchema={demo.uiSchema!}
@@ -190,5 +197,5 @@ export default defineComponent({
         // </StyleThemeProvider>
       )
     }
-  }
+  },
 })
