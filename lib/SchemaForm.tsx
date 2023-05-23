@@ -1,13 +1,27 @@
-import { type PropType, defineComponent, provide, watchEffect, watch, type Ref } from 'vue'
+import {
+  type PropType,
+  defineComponent,
+  provide,
+  watchEffect,
+  watch,
+  type Ref,
+  shallowRef,
+} from 'vue'
 import { type Schema } from './types'
 import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './fields/context'
+import type { Options } from 'ajv'
+import Ajv from 'ajv'
 
 interface ContextRef {
   doValidate: () => {
     errors: any[]
     valid: boolean
   }
+}
+
+const defaultAjvOptions: Options = {
+  allErrors: true,
 }
 
 export default defineComponent({
@@ -27,6 +41,9 @@ export default defineComponent({
     contextRef: {
       type: Object as PropType<Ref<ContextRef | undefined>>,
     },
+    ajvOptions: {
+      type: Object as PropType<Options>,
+    },
     // theme: {
     //   type: Object as PropType<Theme>,
     //   required: true
@@ -37,24 +54,33 @@ export default defineComponent({
       props.onChange(v)
     }
 
+    const validatorRef = shallowRef<Ajv>()
+
+    watchEffect(() => {
+      validatorRef.value = new Ajv({
+        ...defaultAjvOptions,
+        ...props.ajvOptions,
+      })
+    })
+
     watch(
       () => props.contextRef,
       () => {
         if (props.contextRef) {
           props.contextRef.value = {
-            doValidate () {
-              console.log('is exec')
+            doValidate() {
+              const valid = validatorRef.value?.validate(props.schema, props.value)!
               return {
-                valid: true,
-                errors: [],
+                valid: valid,
+                errors: validatorRef.value?.errors || [],
               }
             },
           }
         }
       },
       {
-        immediate: true
-      }
+        immediate: true,
+      },
     )
 
     provide(SchemaFormContextKey, { SchemaItem })

@@ -182,7 +182,7 @@ export default defineComponent({
                   contextRef={contextRef}
                 />
               </ThemeProvider>
-              <button onClick={() => contextRef.value.doValidate()}>校验</button>
+              <button onClick={() => { console.log(contextRef.value.doValidate()) }}>校验</button>
               {/* <SchemaForm
                 schema={demo.schema!}
                 uiSchema={demo.uiSchema!}

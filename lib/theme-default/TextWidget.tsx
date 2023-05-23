@@ -4,14 +4,15 @@ import { type CommonWidgetDefine, CommonWidgetPropsDefine } from '../types'
 const TextWidget: CommonWidgetDefine = defineComponent({
   name: 'TextWidget',
   props: CommonWidgetPropsDefine,
-  setup(props) {
+  setup (props, { emit }) {
+    console.log(props.onChange)
     const handleChange = (e: any) => {
       const value = e.target.value
       e.target.value = props.value
       // e.target.value = props.value
       props.onChange(value)
     }
-    return () => <input type='text' value={props.value} onInput={handleChange} />
+    return () => <input type="text" value={props.value} onInput={handleChange} />
   },
 }) as any
 
