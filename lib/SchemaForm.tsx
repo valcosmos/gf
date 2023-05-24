@@ -12,6 +12,7 @@ import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './fields/context'
 import type { Options } from 'ajv'
 import Ajv from 'ajv'
+import { validateFormData, type Language } from './validator'
 
 interface ContextRef {
   doValidate: () => {
@@ -44,6 +45,10 @@ export default defineComponent({
     ajvOptions: {
       type: Object as PropType<Options>,
     },
+    locale: {
+      type: String as PropType<Language>,
+      default: 'zh',
+    },
     // theme: {
     //   type: Object as PropType<Theme>,
     //   required: true
@@ -69,11 +74,15 @@ export default defineComponent({
         if (props.contextRef) {
           props.contextRef.value = {
             doValidate() {
-              const valid = validatorRef.value?.validate(props.schema, props.value)!
-              return {
-                valid: valid,
-                errors: validatorRef.value?.errors || [],
-              }
+              // const valid = validatorRef.value?.validate(props.schema, props.value)!
+
+              const result = validateFormData(validatorRef.value!, props.value, props.schema, props.locale)
+
+              return result
+              // return {
+              //   valid: valid,
+              //   errors: validatorRef.value?.errors || [],
+              // }
             },
           }
         }

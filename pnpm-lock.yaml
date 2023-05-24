@@ -13,6 +13,9 @@ dependencies:
   jsonpointer:
     specifier: ^5.0.1
     version: 5.0.1
+  lodash.topath:
+    specifier: ^4.5.2
+    version: 4.5.2
   lodash.union:
     specifier: ^4.6.0
     version: 4.6.0
@@ -42,6 +45,9 @@ devDependencies:
   '@types/json-schema-merge-allof':
     specifier: ^0.6.1
     version: 0.6.1
+  '@types/lodash.topath':
+    specifier: ^4.5.7
+    version: 4.5.7
   '@types/lodash.union':
     specifier: ^4.6.7
     version: 4.6.7
@@ -949,10 +955,20 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
+  /@types/lodash.topath@4.5.7:
+    resolution: {integrity: sha512-PZUkjAdGzHKufImfp1f0MoRCX8KNjqqg4JSWiO9nnVkODAP5QvHdva6htFsneqwQ6biydtglSmeirEcrEhVqsA==}
+    dependencies:
+      '@types/lodash': 4.14.191
+    dev: true
+
   /@types/lodash.union@4.6.7:
     resolution: {integrity: sha512-6HXM6tsnHJzKgJE0gA/LhTGf/7AbjUk759WZ1MziVm+OBNAATHhdgj+a3KVE8g76GCLAnN4ZEQQG1EGgtBIABA==}
     dependencies:
       '@types/lodash': 4.14.194
+    dev: true
+
+  /@types/lodash@4.14.191:
+    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
     dev: true
 
   /@types/lodash@4.14.194:
@@ -3738,6 +3754,10 @@ packages:
   /lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
+
+  /lodash.topath@4.5.2:
+    resolution: {integrity: sha512-1/W4dM+35DwvE/iEd1M9ekewOSTlpFekhw9mhAtrwjVqUr83/ilQiyAvmg4tVX7Unkcfl1KC+i9WdaT4B6aQcg==}
+    dev: false
 
   /lodash.union@4.6.0:
     resolution: {integrity: sha512-c4pB2CdGrGdjMKYLA+XiRDO7Y0PRQbm/Gzg8qMj+QH+pFVAoTp5sBpO0odL3FjoPCGjK96p6qsP+yQoiLoOBcw==}
