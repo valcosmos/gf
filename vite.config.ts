@@ -9,11 +9,11 @@ import monacoEditorPlugin from 'vite-plugin-monaco-editor'
 // const prefix = 'monaco-editor/esm/vs'
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), vueJsx(), monacoEditorPlugin({})],
+  plugins: [vue(), vueJsx({ mergeProps: false }), monacoEditorPlugin({})],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
   },
   optimizeDeps: {
     include: [
@@ -21,8 +21,8 @@ export default defineConfig({
       'monaco-editor/esm/vs/language/css/css.worker',
       'monaco-editor/esm/vs/language/html/html.worker',
       'monaco-editor/esm/vs/language/typescript/ts.worker',
-      'monaco-editor/esm/vs/editor/editor.worker',
-    ],
+      'monaco-editor/esm/vs/editor/editor.worker'
+    ]
   },
   build: {
     lib: {
@@ -31,8 +31,8 @@ export default defineConfig({
       // fileName: 'gf'
       entry: {
         gf: './lib/index.ts',
-        theme: './lib/theme-default/index.tsx',
-      },
+        theme: './lib/theme-default/index.tsx'
+      }
     },
     rollupOptions: {
       external: ['vue'],
@@ -40,9 +40,9 @@ export default defineConfig({
         // Provide global variables to use in the UMD build
         // for externalized deps
         globals: {
-          vue: 'Vue',
-        },
-      },
+          vue: 'Vue'
+        }
+      }
       // input: './lib/index.ts',
       // output: {
       //   manualChunks: {
@@ -53,6 +53,6 @@ export default defineConfig({
       //     editorWorker: [`${prefix}/editor/editor.worker`]
       //   }
       // }
-    },
-  },
+    }
+  }
 })
