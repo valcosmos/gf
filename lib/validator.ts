@@ -16,7 +16,7 @@ export type Language = keyof typeof i18n
 
 export type ErrorSchema = {
   [level: string]: ErrorSchema
-} & { __errors: string[] }
+} & { __errors?: string[] }
 
 function transformErrors(errors: ErrorObject[] | null | undefined): TransformedErrorObject[] {
   if (errors === null || errors === undefined) return []

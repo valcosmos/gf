@@ -12,7 +12,7 @@ import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './fields/context'
 import type { Options } from 'ajv'
 import Ajv from 'ajv'
-import { validateFormData, type Language } from './validator'
+import { validateFormData, type Language, type ErrorSchema } from './validator'
 
 interface ContextRef {
   doValidate: () => {
@@ -59,6 +59,8 @@ export default defineComponent({
       props.onChange(v)
     }
 
+    const errorSchemaRef = shallowRef<ErrorSchema>({})
+
     const validatorRef = shallowRef<Ajv>()
 
     watchEffect(() => {
@@ -76,7 +78,14 @@ export default defineComponent({
             doValidate() {
               // const valid = validatorRef.value?.validate(props.schema, props.value)!
 
-              const result = validateFormData(validatorRef.value!, props.value, props.schema, props.locale)
+              const result = validateFormData(
+                validatorRef.value!,
+                props.value,
+                props.schema,
+                props.locale,
+              )
+
+              errorSchemaRef.value = result.errorSchema
 
               return result
               // return {
@@ -97,7 +106,13 @@ export default defineComponent({
     return () => {
       const { schema, value } = props
       return (
-        <SchemaItem schema={schema} value={value} rootSchema={schema} onChange={handleChange} />
+        <SchemaItem
+          schema={schema}
+          value={value}
+          rootSchema={schema}
+          onChange={handleChange}
+          errorSchema={errorSchemaRef.value || {}}
+        />
       )
     }
   },

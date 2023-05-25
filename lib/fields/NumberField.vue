@@ -15,11 +15,11 @@ function handleChange(v: string) {
 
 const NumberWidget = getWidget(CommonWidgetNames.NumberWidget)
 // <input type="number" :value="value" @input="handleChange">
-const { schema, rootSchema, ...rest } = props
+const { schema, rootSchema, errorSchema,...rest } = props
 </script>
 
 <template>
-  <NumberWidget v-bind="rest" @on-change="handleChange" />
+  <NumberWidget v-bind="rest" :errors="errorSchema?.__errors" @on-change="handleChange" />
 </template>
 
 <style scoped></style>

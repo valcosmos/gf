@@ -11,12 +11,11 @@ export default defineComponent({
     }
     const TextWidgetRef = getWidget(CommonWidgetNames.TextWidget)
 
-
     return () => {
-      const { rootSchema, ...rest } = props
+      const { rootSchema, errorSchema, ...rest } = props
       const TextWidget = TextWidgetRef.value
 
-      return <TextWidget {...rest} onChange={handleChange} />
+      return <TextWidget {...rest} errors={errorSchema?.__errors} onChange={handleChange} />
     }
   },
 })
