@@ -19,7 +19,7 @@ const { schema, rootSchema, errorSchema,...rest } = props
 </script>
 
 <template>
-  <NumberWidget v-bind="rest" :errors="errorSchema?.__errors" @on-change="handleChange" />
+  <NumberWidget v-bind="rest" :schema="schema" :errors="errorSchema?.__errors" @on-change="handleChange" />
 </template>
 
 <style scoped></style>

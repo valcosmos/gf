@@ -16,6 +16,7 @@ interface SchemaRef {
 
 // type Schema = any
 export interface Schema {
+  title: string
   type: SchemaTypes | string
   const?: any
   format?: string
@@ -61,6 +62,10 @@ export const FieldPropsDefine = {
 export type CommonFieldDefine = DefineComponent<typeof FieldPropsDefine>
 
 export const CommonWidgetPropsDefine = {
+  schema: {
+    type: Object as PropType<Schema>,
+    required: true
+  },
   value: {},
   onChange: {
     type: Function as PropType<(v: any) => void>,
