@@ -6,63 +6,69 @@ export default {
     required: ['firstName', 'lastName'],
     properties: {
       firstName: {
+        title: 'first name',
         type: 'string',
-        default: 'Chuck'
+        default: 'Chuck',
       },
       lastName: {
-        type: 'string'
+        title: 'last name',
+        type: 'string',
       },
       telephone: {
+        title: 'telephone',
         type: 'string',
-        minLength: 10
+        minLength: 10,
       },
       staticArray: {
+        title: 'static array',
         type: 'array',
         items: [
           {
-            type: 'string'
+            type: 'string',
           },
           {
-            type: 'number'
-          }
-        ]
+            type: 'number',
+          },
+        ],
       },
       singleTypeArray: {
+        title: 'single type array',
         type: 'array',
         items: {
           type: 'object',
           properties: {
             name: {
-              type: 'string'
+              type: 'string',
             },
             age: {
-              type: 'number'
-            }
-          }
-        }
+              type: 'number',
+            },
+          },
+        },
       },
       multiSelectArray: {
+        title: 'multi select array',
         type: 'array',
         items: {
           type: 'string',
-          enum: ['123', '456', '789']
-        }
-      }
-    }
+          enum: ['123', '456', '789'],
+        },
+      },
+    },
   },
   uiSchema: {
     title: 'A registration form',
     properties: {
       firstName: {
-        title: 'First name'
+        title: 'First name',
       },
       lastName: {
-        title: 'Last name'
+        title: 'Last name',
       },
       telephone: {
-        title: 'Telephone'
-      }
-    }
+        title: 'Telephone',
+      },
+    },
   },
   default: {
     firstName: 'Chuck',
@@ -70,6 +76,6 @@ export default {
     age: 75,
     bio: 'Roundhouse kicking asses since 1940',
     password: 'noneed',
-    singleTypeArray: [{ name: 'Cupid', age: 12 }]
-  }
+    singleTypeArray: [{ name: 'Cupid', age: 12 }],
+  },
 }
