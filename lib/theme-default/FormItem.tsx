@@ -1,4 +1,4 @@
-import { CommonWidgetPropsDefine } from '../types'
+import { CommonWidgetPropsDefine, type CommonWidgetDefine } from '../types'
 import { defineComponent } from 'vue'
 
 import { createUseStyles } from 'vue-jss'
@@ -18,7 +18,7 @@ const useStyles = createUseStyles({
   },
 })
 
-export default defineComponent({
+export const FormItem = defineComponent({
   name: 'FormItem',
   props: CommonWidgetPropsDefine,
   setup(props, { slots }) {
@@ -42,3 +42,21 @@ export default defineComponent({
     }
   },
 })
+
+export default FormItem
+
+export function withFormItem(Widget: any) {
+  return defineComponent({
+    name: `Wrapped${Widget.name}`,
+    props: CommonWidgetPropsDefine,
+    setup(props) {
+      return () => {
+        return (
+          <FormItem {...props}>
+            <Widget {...props} />
+          </FormItem>
+        )
+      }
+    },
+  }) as CommonWidgetDefine
+}
