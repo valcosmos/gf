@@ -49,6 +49,9 @@ export default defineComponent({
       type: String as PropType<Language>,
       default: 'zh',
     },
+    customValid: {
+      type: Function as PropType<(data: any, errors: any) => void>,
+    },
     // theme: {
     //   type: Object as PropType<Theme>,
     //   required: true
@@ -83,6 +86,7 @@ export default defineComponent({
                 props.value,
                 props.schema,
                 props.locale,
+                props.customValid
               )
 
               errorSchemaRef.value = result.errorSchema

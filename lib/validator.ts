@@ -3,6 +3,7 @@ import type { Schema } from './types'
 import i18n from 'ajv-i18n'
 import type { ErrorObject } from 'ajv'
 import toPath from 'lodash.topath'
+import { isObject } from './utils'
 
 interface TransformedErrorObject {
   name: string
@@ -62,7 +63,13 @@ function toErrorSchema(errors: TransformedErrorObject[]) {
   }, {} as ErrorSchema)
 }
 
-export function validateFormData(validator: Ajv, formData: any, schema: Schema, locale: Language = 'zh') {
+export function validateFormData(
+  validator: Ajv,
+  formData: any,
+  schema: Schema,
+  locale: Language = 'zh',
+  customValidate?: (data: any, errors: any) => void,
+) {
   let validationError: any
   try {
     validator.validate(schema, formData)
@@ -79,5 +86,66 @@ export function validateFormData(validator: Ajv, formData: any, schema: Schema, 
   }
   const errorSchema = toErrorSchema(errors)
 
-  return { errors, errorSchema, valid: errors.length === 0 }
+  if (!customValidate) return { errors, errorSchema, valid: errors.length === 0 }
+
+  /**
+   * {
+   *
+   * }
+   */
+
+  const proxy = createErrorProxy()
+  customValidate(formData, proxy)
+  const newErrorSchema = mergeObjects(errorSchema, proxy, true)
+
+  return {
+    errors,
+    errorSchema: newErrorSchema,
+    valid: errors.length === 0,
+  }
+}
+
+function createErrorProxy() {
+  const raw = {}
+
+  return new Proxy(raw, {
+    get(target, key, receiver) {
+      if (key === 'addError') {
+        return (msg: string) => {
+          const __errors = Reflect.get(target, '__errors', receiver)
+          if (__errors && Array.isArray(__errors)) {
+            __errors.push(msg)
+          } else {
+            ;(target as any).__errors = [msg]
+          }
+        }
+      }
+
+      const res = Reflect.get(target, key, receiver)
+      if (res === undefined) {
+        const p: any = createErrorProxy()
+        ;(target as any)[key] = p
+        return p
+      }
+
+      return res
+    },
+  })
+}
+
+export function mergeObjects(obj1: any, obj2: any, concatArrays = false) {
+  // Recursively merge deeply nested objects.
+  const acc = Object.assign({}, obj1) // Prevent mutation of source object.
+  return Object.keys(obj2).reduce((acc, key) => {
+    const left = obj1 ? obj1[key] : {},
+      right = obj2[key]
+    if (obj1 && obj1.hasOwnProperty(key) && isObject(right)) {
+      acc[key] = mergeObjects(left, right, concatArrays)
+    } else if (concatArrays && Array.isArray(left) && Array.isArray(right)) {
+      acc[key] = left.concat(right)
+    } else {
+      acc[key] = right
+    }
+    return acc
+  }, acc)
 }
