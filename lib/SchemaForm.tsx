@@ -8,7 +8,7 @@ import {
   shallowRef,
   ref,
 } from 'vue'
-import { type Schema } from './types'
+import { type Schema, type UISchema } from './types'
 import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './fields/context'
 import type { Options } from 'ajv'
@@ -52,6 +52,9 @@ export default defineComponent({
     },
     customValid: {
       type: Function as PropType<(data: any, errors: any) => void>,
+    },
+    uiSchema: {
+      type: Object as PropType<UISchema>,
     },
     // theme: {
     //   type: Object as PropType<Theme>,
@@ -124,7 +127,7 @@ export default defineComponent({
     provide(SchemaFormContextKey, { SchemaItem })
 
     return () => {
-      const { schema, value } = props
+      const { schema, value, uiSchema } = props
       return (
         <SchemaItem
           schema={schema}
@@ -132,6 +135,7 @@ export default defineComponent({
           rootSchema={schema}
           onChange={handleChange}
           errorSchema={errorSchemaRef.value || {}}
+          uiSchema={uiSchema}
         />
       )
     }

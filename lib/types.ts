@@ -57,6 +57,9 @@ export const FieldPropsDefine = {
     type: Object as PropType<ErrorSchema>,
     require: true,
   },
+  uiSchema: {
+    type: Object as PropType<UISchema>,
+  },
 } as const
 
 export type CommonFieldDefine = DefineComponent<typeof FieldPropsDefine>
@@ -64,7 +67,7 @@ export type CommonFieldDefine = DefineComponent<typeof FieldPropsDefine>
 export const CommonWidgetPropsDefine = {
   schema: {
     type: Object as PropType<Schema>,
-    required: true
+    required: true,
   },
   value: {},
   onChange: {
@@ -104,4 +107,12 @@ export interface Theme {
     [CommonWidgetNames.TextWidget]: CommonWidgetDefine
     [CommonWidgetNames.NumberWidget]: CommonWidgetDefine
   }
+}
+
+export interface UISchema {
+  widget?: string | CommonWidgetDefine
+  properties?: {
+    [key: string]: UISchema
+  }
+  items?: UISchema | UISchema[]
 }

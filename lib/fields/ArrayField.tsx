@@ -5,6 +5,7 @@ import { getWidget } from '../theme'
 import { FieldPropsDefine, type Schema, SelectionWidgetNames } from '../types'
 import { useVJSFContext } from './context'
 import ArrayItemWrapper from './ArrayItemWrapper'
+import { isObject } from 'lib/utils'
 
 /**
  * {
@@ -72,7 +73,7 @@ export default defineComponent({
     const SelectionWidgetRef = getWidget(SelectionWidgetNames.SelectionWidget)
 
     return () => {
-      const { schema, rootSchema, value, errorSchema } = props
+      const { schema, rootSchema, value, errorSchema, uiSchema } = props
 
       const SchemaItem = context.SchemaItem
       // const SelectionWidget = context.theme.widgets.SelectionWidget
@@ -85,16 +86,22 @@ export default defineComponent({
         const items: Schema[] = schema.items as any
         const arr = Array.isArray(value) ? value : []
 
-        return items.map((s: Schema, index: number) => (
-          <SchemaItem
-            schema={s}
-            key={index}
-            rootSchema={rootSchema}
-            errorSchema={errorSchema?.[index] || {}}
-            value={arr[index]}
-            onChange={(v) => handleArrayItemChange(v, index)}
-          />
-        ))
+        return items.map((s: Schema, index: number) => {
+          const itemsUISchema = uiSchema?.items
+          const us = Array.isArray(itemsUISchema) ? itemsUISchema[index] || {} : itemsUISchema || {}
+
+          return (
+            <SchemaItem
+              schema={s}
+              uiSchema={us}
+              key={index}
+              rootSchema={rootSchema}
+              errorSchema={errorSchema?.[index] || {}}
+              value={arr[index]}
+              onChange={(v) => handleArrayItemChange(v, index)}
+            />
+          )
+        })
       } else if (!isSelect) {
         const arr = Array.isArray(value) ? value : []
         return arr.map((v: any, index: number) => {
@@ -108,6 +115,7 @@ export default defineComponent({
             >
               <SchemaItem
                 schema={schema.items as Schema}
+                uiSchema={(uiSchema?.items as any) || {}}
                 errorSchema={errorSchema?.[index] || {}}
                 value={v}
                 key={index}
@@ -120,7 +128,15 @@ export default defineComponent({
       } else {
         const enumOptions = (schema as any).items.enum
         const options = enumOptions.map((e: any) => ({ key: e, value: e }))
-        return <SelectionWidget onChange={props.onChange} value={props.value} schema={schema} options={options} errors={errorSchema?.__errors} />
+        return (
+          <SelectionWidget
+            onChange={props.onChange}
+            value={props.value}
+            schema={schema}
+            options={options}
+            errors={errorSchema?.__errors}
+          />
+        )
       }
       // return <div></div>
     }
