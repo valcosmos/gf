@@ -8,7 +8,7 @@ export const keyword: CustomKeywordProps = {
         minLength: 10,
       }
     },
-  },
+  } as any,
   transformSchema(schema) {
     return {
       ...schema,
