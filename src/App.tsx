@@ -8,6 +8,7 @@ import MonacoEditor from './components/MonacoEditor'
 
 import demos from './demos'
 import { CustomFormat } from './plugins/customFormat'
+import { keyword } from './plugins/CustomKeyword'
 
 // TODO: 在lib中export
 type Schema = any
@@ -192,6 +193,7 @@ export default defineComponent({
                   value={demo.data}
                   contextRef={contextRef}
                   customFormats={CustomFormat}
+                  customKeywords={keyword}
                   customValid={demo.customerValidate}
                 />
               </ThemeProvider>

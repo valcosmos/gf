@@ -9,7 +9,13 @@ import {
   ref,
   computed,
 } from 'vue'
-import { type CommonWidgetDefine, type CustomFormatProps, type Schema, type UISchema } from './types'
+import {
+  type CommonWidgetDefine,
+  type CustomFormatProps,
+  type CustomKeywordProps,
+  type Schema,
+  type UISchema,
+} from './types'
 import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './fields/context'
 import type { Options } from 'ajv'
@@ -60,6 +66,10 @@ export default defineComponent({
     customFormats: {
       type: [Array, Object] as PropType<CustomFormatProps[] | CustomFormatProps>,
     },
+    customKeywords: {
+      type: [Array, Object] as PropType<CustomKeywordProps[] | CustomKeywordProps>,
+    },
+
     // theme: {
     //   type: Object as PropType<Theme>,
     //   required: true
@@ -84,6 +94,25 @@ export default defineComponent({
       }
     })
 
+    const transformSchemaRef = computed(() => {
+      if (props.customKeywords) {
+        const customKeywords = Array.isArray(props.customKeywords)
+          ? props.customKeywords
+          : [props.customKeywords]
+        return (schema: Schema) => {
+          let newSchema = schema
+          customKeywords.forEach((keyword) => {
+            if ((newSchema as any)[keyword!.name]) {
+              newSchema = keyword?.transformSchema(schema)!
+            }
+          })
+          return newSchema
+        }
+      } else {
+        return (s: Schema) => s
+      }
+    })
+
     const errorSchemaRef = shallowRef<ErrorSchema>({})
 
     const validatorRef = shallowRef<Ajv>()
@@ -101,6 +130,15 @@ export default defineComponent({
         customFormats.forEach((format) => {
           validatorRef.value?.addFormat(format.name, format.definition)
         })
+      }
+
+      if (props.customKeywords) {
+        const customKeywords = Array.isArray(props.customKeywords)
+          ? props.customKeywords
+          : [props.customKeywords]
+        customKeywords.forEach((keyword) =>
+          validatorRef.value?.addKeyword(keyword.name, keyword.definition),
+        )
       }
     })
 
@@ -151,7 +189,7 @@ export default defineComponent({
       },
     )
 
-    provide(SchemaFormContextKey, { SchemaItem, formatMapRef })
+    provide(SchemaFormContextKey, { SchemaItem, formatMapRef, transformSchemaRef })
 
     return () => {
       const { schema, value, uiSchema } = props

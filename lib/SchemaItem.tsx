@@ -5,15 +5,20 @@ import NumberField from './fields/NumberField.vue'
 import ObjectField from './fields/ObjectField'
 import ArrayField from './fields/ArrayField'
 import { retrieveSchema } from './utils'
+import { useVJSFContext } from './fields/context'
 
 export default defineComponent({
   name: 'SchemaItem',
   props: FieldPropsDefine,
-  setup(props) {
+  setup (props) {
+    
+    const formContext = useVJSFContext()
+
+
     const retrievedSchemaRef = computed(() => {
       const { schema, rootSchema, value } = props
 
-      return retrieveSchema(schema, rootSchema, value)
+      return formContext.transformSchemaRef.value(retrieveSchema(schema, rootSchema, value))
     })
 
     // TODO: 如果type没有制定，我们需要猜测这个type
