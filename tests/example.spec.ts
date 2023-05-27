@@ -1,19 +1,22 @@
 import { mount } from '@vue/test-utils'
 import JSONSchemaForm, { NumberField } from '../lib'
+import TestComponent from './utils/TestComponent'
+import type { DefineComponent } from 'vue'
 
 describe('JSONSchemaForm', () => {
   it('should render correct number field', async () => {
     let value = ''
-    const wrapper = mount(JSONSchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
-          type: 'number'
+          title: '',
+          type: 'number',
         },
         value,
         onChange: (v: string) => {
           value = v
-        }
-      }
+        },
+      },
     })
 
     const numberField = wrapper.findComponent(NumberField)

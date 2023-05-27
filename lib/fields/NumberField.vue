@@ -8,7 +8,6 @@ function handleChange(v: string) {
   const value = Number(v)
   if (isNaN(value))
     props.onChange(undefined)
-
   else
     props.onChange(value)
 }
@@ -19,7 +18,7 @@ const { schema, rootSchema, errorSchema,...rest } = props
 </script>
 
 <template>
-  <NumberWidget v-bind="rest" :schema="schema" :errors="errorSchema?.__errors" @on-change="handleChange" />
+  <NumberWidget v-bind="rest" :schema="schema" :errors="errorSchema?.__errors" :on-change="handleChange" />
 </template>
 
 <style scoped></style>

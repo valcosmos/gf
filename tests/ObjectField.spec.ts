@@ -1,5 +1,7 @@
 import { mount } from '@vue/test-utils'
-import SchemaForm, { NumberField, StringField } from 'lib'
+import  { NumberField, StringField } from 'lib'
+import TestComponent from './utils/TestComponent'
+
 
 describe('ObjectField', () => {
 
@@ -20,12 +22,12 @@ describe('ObjectField', () => {
 
 
   it('should render properties to correct fields', () => {
-    const wrapper = mount(SchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema,
         value: {},
-        onChange: () => {}
-      }
+        onChange: () => {},
+      },
     })
 
     const strField = wrapper.findComponent(StringField)
@@ -37,7 +39,7 @@ describe('ObjectField', () => {
 
   it('should change value when sub fields trigger onChange', async () => {
     let value: any = {}
-    const wrapper = mount(SchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema,
         value,
@@ -60,7 +62,7 @@ describe('ObjectField', () => {
     let value: any = {
       name: '123'
     }
-    const wrapper = mount(SchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema,
         value,
