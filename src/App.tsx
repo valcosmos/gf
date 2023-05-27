@@ -7,6 +7,7 @@ import SchemaForm, { ThemeProvider } from '../lib'
 import MonacoEditor from './components/MonacoEditor'
 
 import demos from './demos'
+import { CustomFormat } from './plugins/customFormat'
 
 // TODO: 在lib中export
 type Schema = any
@@ -190,6 +191,7 @@ export default defineComponent({
                   uiSchema={demo.uiSchema || {}}
                   value={demo.data}
                   contextRef={contextRef}
+                  customFormats={CustomFormat}
                   customValid={demo.customerValidate}
                 />
               </ThemeProvider>

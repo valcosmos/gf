@@ -1,5 +1,6 @@
 import type { DefineComponent, PropType } from 'vue'
 import type { ErrorSchema } from './validator'
+import type { FormatDefinition } from 'ajv'
 
 export enum SchemaTypes {
   'NUMBER' = 'number',
@@ -120,4 +121,10 @@ export type UISchema = {
   items?: UISchema | UISchema[]
 } & {
   [key: string]: any
+}
+
+export interface CustomFormatProps {
+  name: string
+  definition: FormatDefinition<string | number>
+  component: CommonWidgetDefine
 }

@@ -1,4 +1,4 @@
-import PasswordWidget from "@/components/PasswordWidget"
+import PasswordWidget from '@/components/PasswordWidget'
 
 export default {
   name: 'Demo',
@@ -16,6 +16,11 @@ export default {
         type: 'string',
         minLength: 10,
         title: 'retry password',
+      },
+      color: {
+        title: 'input color',
+        type: 'string',
+        format: 'color',
       },
     },
   },
