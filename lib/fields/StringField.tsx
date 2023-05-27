@@ -1,6 +1,6 @@
 import { CommonWidgetNames, FieldPropsDefine } from '../types'
 import { getWidget } from '../theme'
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'StringField',
@@ -9,7 +9,10 @@ export default defineComponent({
     function handleChange(v: string) {
       props.onChange(v)
     }
-    const TextWidgetRef = getWidget(CommonWidgetNames.TextWidget)
+    const TextWidgetRef = computed(() => { 
+      const widgetRef = getWidget(CommonWidgetNames.TextWidget, props.uiSchema)
+      return widgetRef.value
+    })
 
     return () => {
       const { rootSchema, errorSchema, ...rest } = props

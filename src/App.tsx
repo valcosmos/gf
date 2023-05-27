@@ -187,6 +187,7 @@ export default defineComponent({
                 <SchemaForm
                   schema={demo.schema}
                   onChange={handleChange}
+                  uiSchema={demo.uiSchema || {}}
                   value={demo.data}
                   contextRef={contextRef}
                   customValid={demo.customerValidate}
