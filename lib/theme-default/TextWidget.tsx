@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { type CommonWidgetDefine, CommonWidgetPropsDefine } from '../types'
 import FormItem, { withFormItem } from './FormItem'
 
@@ -14,9 +14,18 @@ const TextWidget: CommonWidgetDefine = withFormItem(
         // e.target.value = props.value
         props.onChange(value)
       }
+
+      const styleRef = computed(() => {
+        return {
+          color: (props.options && props.options.color) || 'black',
+        }
+      })
+
+
+
       return () => (
         // <FormItem {...props}>
-          <input type="text" value={props.value} onInput={handleChange} />
+        <input type="text" value={props.value} onInput={handleChange} style={styleRef.value} />
         // </FormItem>
       )
     },

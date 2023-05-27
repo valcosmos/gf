@@ -32,9 +32,12 @@ export default {
   uiSchema: {
     properties: {
       pass1: {
-        widget: PasswordWidget
-      }
-    }
+        widget: PasswordWidget,
+      },
+      pass2: {
+        color: 'red',
+      },
+    },
   },
   default: 'Cupid',
 }
