@@ -94,7 +94,7 @@ export default defineComponent({
 
     watchEffect(() => {
       const index = selectedRef.value
-      const d:any = demos[index]
+      const d: any = demos[index]
       demo.schema = d.schema
       demo.data = d.default
       demo.uiSchema = d.uiSchema
@@ -128,6 +128,12 @@ export default defineComponent({
     const handleUISchemaChange = (v: string) => handleCodeChange('uiSchema', v)
 
     const contextRef = ref()
+
+    function validateForm() {
+      contextRef.value.doValidate().then((res: any) => {
+        console.log(res)
+      })
+    }
 
     return () => {
       const classes = classesRef.value
@@ -186,13 +192,7 @@ export default defineComponent({
                   customValid={demo.customerValidate}
                 />
               </ThemeProvider>
-              <button
-                onClick={() => {
-                  console.log(contextRef.value.doValidate())
-                }}
-              >
-                校验
-              </button>
+              <button onClick={validateForm}>校验</button>
               {/* <SchemaForm
                 schema={demo.schema!}
                 uiSchema={demo.uiSchema!}

@@ -40,7 +40,9 @@ function toErrorSchema(errors: TransformedErrorObject[]) {
 
   return errors.reduce((errorSchema, error) => {
     const { property, message } = error
-    const path = toPath(property) // /obj/obj1  ==>  [obj, obj1]
+    console.log(property)
+    const path = toPath(property.replace('/','')) // /obj/obj1  ==>  [obj, obj1]
+    console.log(path)
     let parent = errorSchema
 
     if (path.length > 0 && path[0] === '') {
@@ -63,7 +65,7 @@ function toErrorSchema(errors: TransformedErrorObject[]) {
   }, {} as ErrorSchema)
 }
 
-export function validateFormData(
+export async function validateFormData(
   validator: Ajv,
   formData: any,
   schema: Schema,
@@ -95,7 +97,7 @@ export function validateFormData(
    */
 
   const proxy = createErrorProxy()
-  customValidate(formData, proxy)
+  await customValidate(formData, proxy)
   const newErrorSchema = mergeObjects(errorSchema, proxy, true)
 
   return {
