@@ -136,8 +136,9 @@ export default defineComponent({
         const customKeywords = Array.isArray(props.customKeywords)
           ? props.customKeywords
           : [props.customKeywords]
-        customKeywords.forEach((keyword) =>
-          validatorRef.value?.addKeyword(keyword.name, keyword.definition),
+        customKeywords.forEach(
+          (keyword) => validatorRef.value?.addKeyword(keyword.definition),
+          // validatorRef.value?.addKeyword(keyword.name, keyword.definition),
         )
       }
     })

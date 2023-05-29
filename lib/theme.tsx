@@ -7,6 +7,8 @@ import {
   provide,
   ref,
   type ExtractPropTypes,
+  shallowRef,
+  toRaw,
 } from 'vue'
 import type {
   CommonWidgetDefine,
@@ -47,14 +49,14 @@ export function getWidget<T extends SelectionWidgetNames | CommonWidgetNames>(
   if (props) {
     const { uiSchema, schema } = props
     if (uiSchema?.widget && isObject(uiSchema.widget)) {
-      return ref(uiSchema.widget)
+      return shallowRef(toRaw(uiSchema.widget))
     }
     if (schema.format) {
       console.log(formContext.formatMapRef.value, schema.format)
       if (formContext.formatMapRef.value[schema.format]) {
         console.log(111)
 
-        return ref(formContext.formatMapRef.value[schema.format])
+        return shallowRef(formContext.formatMapRef.value[schema.format])
       }
     }
   }
