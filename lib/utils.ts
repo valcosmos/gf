@@ -36,7 +36,7 @@ export function validateData(schema: any, data: any) {
 }
 
 // function resolveSchema(schema: any, data: any = {}) {}
-export function resolveSchema(schema: Schema, rootSchema = {}, formData = {}) {
+export function resolveSchema(schema: any, rootSchema = {}, formData = {}) {
   if (hasOwnProperty(schema, '$ref')) {
     return resolveReference(schema, rootSchema, formData)
   } else if (hasOwnProperty(schema, 'dependencies')) {
@@ -45,7 +45,7 @@ export function resolveSchema(schema: Schema, rootSchema = {}, formData = {}) {
   } else if (hasOwnProperty(schema, 'allOf') && Array.isArray(schema.allOf)) {
     return {
       ...schema,
-      allOf: schema.allOf.map((allOfSubschema) =>
+      allOf: schema.allOf.map((allOfSubschema: any) =>
         retrieveSchema(allOfSubschema, rootSchema, formData)
       )
     }
@@ -59,7 +59,7 @@ export function retrieveSchema(schema: any, rootSchema = {}, formData: any = {})
   if (!isObject(schema)) {
     return {} as Schema
   }
-  let resolvedSchema = resolveSchema(schema, rootSchema, formData)
+  let resolvedSchema = resolveSchema(schema, rootSchema, formData) as any
 
   // TODO: allOf and additionalProperties not implemented
   if ('allOf' in schema) {
@@ -89,7 +89,7 @@ export const ADDITIONAL_PROPERTY_FLAG = '__additional_property'
 // This function will create new "properties" items for each key in our formData
 export function stubExistingAdditionalProperties(
   schema: Schema,
-  rootSchema: Schema = {},
+  rootSchema: any,
   formData: any = {}
 ) {
   // Clone the schema so we don't ruin the consumer's original
@@ -398,8 +398,8 @@ export function isConstant(schema: Schema) {
   return (Array.isArray(schema.enum) && schema.enum.length === 1) || schema.hasOwnProperty('const')
 }
 
-export function isSelect(_schema: any, rootSchema: Schema = {}) {
-  const schema = retrieveSchema(_schema, rootSchema)
+export function isSelect(_schema: any, rootSchema: any) {
+  const schema = retrieveSchema(_schema, rootSchema) as any
   const altSchemas = schema.oneOf || schema.anyOf
   if (Array.isArray(schema.enum)) {
     return true
@@ -409,7 +409,7 @@ export function isSelect(_schema: any, rootSchema: Schema = {}) {
   return false
 }
 
-export function isMultiSelect(schema: Schema, rootSchema: Schema = {}) {
+export function isMultiSelect(schema: any, rootSchema: Schema) {
   if (!schema.uniqueItems || !schema.items) {
     return false
   }
@@ -423,7 +423,7 @@ export function getMatchingOption(
   isValid: (schema: Schema, data: any) => boolean
 ) {
   for (let i = 0; i < options.length; i++) {
-    const option = options[i]
+    const option = options[i] as any
 
     // If the schema describes an object then we need to add slightly more
     // strict matching to the schema, because unless the schema uses the

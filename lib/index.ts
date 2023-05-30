@@ -4,8 +4,18 @@ import StringField from './fields/StringField'
 import ArrayField from './fields/ArrayField'
 import SelectionWidget from './widgets/SelectionWidget'
 import ThemeProvider from './theme'
+import themeDefault from './theme-default'
 
-export default SchemaForm
+
+// export default SchemaForm
 export * from './types'
 
-export { NumberField, StringField, ArrayField, SelectionWidget, ThemeProvider }
+export {
+  NumberField,
+  StringField,
+  ArrayField,
+  SelectionWidget,
+  ThemeProvider,
+  SchemaForm,
+  themeDefault,
+}
