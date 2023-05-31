@@ -3,11 +3,11 @@ import { defineComponent, reactive, ref, watchEffect } from 'vue'
 import { createUseStyles } from 'vue-jss'
 
 import themeDefault from '../lib/theme-default'
-import SchemaForm, { ThemeProvider } from '../lib'
+import  { ThemeProvider, SchemaForm } from '../lib'
 import MonacoEditor from './components/MonacoEditor'
 
 import demos from './demos'
-import { CustomFormat } from './plugins/customFormat'
+import { CustomFormat } from './plugins/CustomFormat'
 import { keyword } from './plugins/CustomKeyword'
 
 // TODO: 在lib中export
