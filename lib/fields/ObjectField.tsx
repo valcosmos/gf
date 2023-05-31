@@ -7,15 +7,13 @@ const schema = {
   type: 'object',
   properties: {
     name: {
-      type: 'string'
+      type: 'string',
     },
     age: {
-      type: 'number'
-    }
-  }
+      type: 'number',
+    },
+  },
 }
-
-
 
 export default defineComponent({
   name: 'ObjectField',
@@ -25,16 +23,16 @@ export default defineComponent({
 
     const handleObjectFieldChange = (key: string, v: string) => {
       const value: any = isObject(props.value) ? props.value : {}
-      if (value === undefined) {
+      if (value === undefined)
         delete value[key]
-      } else {
+      else
         value[key] = v
-      }
+
       props.onChange(value)
     }
 
     return () => {
-      const { schema, rootSchema, value, errorSchema , uiSchema} = props
+      const { schema, rootSchema, value, errorSchema, uiSchema } = props
       const { SchemaItem } = context
       const properties = schema.properties || {}
       const currentValue: any = isObject(value) ? value : {}
@@ -47,9 +45,9 @@ export default defineComponent({
           value={currentValue[k]}
           key={index}
           uiSchema={uiSchema?.properties ? uiSchema.properties[k] || {} : {}}
-          onChange={(v) => handleObjectFieldChange(k, v)}
+          onChange={v => handleObjectFieldChange(k, v)}
         />
       ))
     }
-  }
+  },
 })

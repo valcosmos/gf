@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
-import JSONSchemaForm, { NumberField } from '../lib'
+import { NumberField } from '../lib'
 import TestComponent from './utils/TestComponent'
-import type { DefineComponent } from 'vue'
 
 describe('JSONSchemaForm', () => {
   it('should render correct number field', async () => {

@@ -10,17 +10,15 @@ export const SelectionWidget: SelectionWidgetDefine = withFormItem(
       const currentValueRef = ref(props.value)
 
       watch(currentValueRef, (newValue) => {
-        if (newValue !== props.value) {
+        if (newValue !== props.value)
           props.onChange(newValue)
-        }
       })
 
       watch(
         () => props.value,
         (v) => {
-          if (v !== currentValueRef.value) {
+          if (v !== currentValueRef.value)
             currentValueRef.value = v
-          }
         },
       )
 
@@ -29,7 +27,7 @@ export const SelectionWidget: SelectionWidgetDefine = withFormItem(
 
         return (
           <select multiple v-model={currentValueRef.value}>
-            {options.map((op) => (
+            {options.map(op => (
               <option value={op.value}>{op.key}</option>
             ))}
           </select>

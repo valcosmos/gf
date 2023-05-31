@@ -1,7 +1,7 @@
-import { CommonWidgetPropsDefine, type CommonWidgetDefine } from '../types'
 import { defineComponent } from 'vue'
 
 import { createUseStyles } from 'vue-jss'
+import { CommonWidgetPropsDefine } from '../types'
 
 const useStyles = createUseStyles({
   container: {},
@@ -33,7 +33,7 @@ export const FormItem = defineComponent({
           <label class={classes.label}>{schema.title}</label>
           {slots.default?.()}
           <ul class={classes.errorText}>
-            {errors?.map((err) => (
+            {errors?.map(err => (
               <li>{err}</li>
             ))}
           </ul>
@@ -49,7 +49,7 @@ export function withFormItem(Widget: any) {
   return defineComponent({
     name: `Wrapped${Widget.name}`,
     props: CommonWidgetPropsDefine,
-    setup (props, { attrs }) {
+    setup(props, { attrs }) {
       return () => {
         return (
           <FormItem {...props}>

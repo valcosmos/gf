@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { getWidget } from '../theme'
-import { CommonWidgetNames, FieldPropsDefine } from '../types'
+import { FieldPropsDefine } from '../types'
 
 const props = defineProps(FieldPropsDefine)
 
@@ -9,7 +8,6 @@ function handleChange(v: string) {
 
   props.onChange(v)
 }
-
 
 // <!-- <input type="text" :value="value" @input="handleChange"> -->
 const { schema, rootSchema, ...rest } = props

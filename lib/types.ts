@@ -1,6 +1,6 @@
 import type { DefineComponent, PropType } from 'vue'
-import type { ErrorSchema } from './validator'
 import type { FormatDefinition, KeywordDefinition } from 'ajv'
+import type { ErrorSchema } from './validator'
 
 export enum SchemaTypes {
   'NUMBER' = 'number',
@@ -129,11 +129,8 @@ export interface CustomFormatProps {
   component: CommonWidgetDefine
 }
 
-
-
-
-export interface CustomKeywordProps { 
-  name: string 
+export interface CustomKeywordProps {
+  name: string
   definition: KeywordDefinition
-  transformSchema: (originSchema: Schema)=>Schema
+  transformSchema: (originSchema: Schema) => Schema
 }

@@ -4,7 +4,7 @@ import localize from 'ajv-i18n'
 
 const schema = {
   type: 'object',
-  minLength: 10
+  minLength: 10,
 }
 
 const ajv = new Ajv()

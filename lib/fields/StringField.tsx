@@ -1,6 +1,6 @@
+import { computed, defineComponent } from 'vue'
 import { CommonWidgetNames, FieldPropsDefine } from '../types'
 import { getWidget } from '../theme'
-import { computed, defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'StringField',

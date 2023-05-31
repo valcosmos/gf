@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
-import SchemaForm from '../../lib'
+import { SchemaForm } from '../../lib'
 import type { Schema } from '../../lib/types'
 import ThemeDefaultProvider from './ThemeDefaultProvider'
 
@@ -9,15 +9,15 @@ export default defineComponent({
   props: {
     schema: {
       type: Object as PropType<Schema>,
-      required: true
+      required: true,
     },
     value: {
-      required: true
+      required: true,
     },
     onChange: {
       type: Function as PropType<(v: any) => void>,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     return () => (
@@ -25,5 +25,5 @@ export default defineComponent({
         <SchemaForm {...props} />
       </ThemeDefaultProvider>
     )
-  }
+  },
 })

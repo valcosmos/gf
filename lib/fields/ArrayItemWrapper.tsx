@@ -3,21 +3,21 @@ import { createUseStyles } from 'vue-jss'
 
 const useStyles = createUseStyles({
   container: {
-    border: '1px solid #eee'
+    border: '1px solid #eee',
   },
   actions: {
     background: '#eee',
     padding: '10px',
-    textAlign: 'right'
+    textAlign: 'right',
   },
   action: {
     '& + &': {
-      marginLeft: '10px'
-    }
+      marginLeft: '10px',
+    },
   },
   content: {
-    padding: '10px'
-  }
+    padding: '10px',
+  },
 })
 
 export default defineComponent({
@@ -25,28 +25,28 @@ export default defineComponent({
   props: {
     onAdd: {
       type: Function as PropType<(index: number) => void>,
-      required: true
+      required: true,
     },
     onDelete: {
       type: Function as PropType<(index: number) => void>,
-      required: true
+      required: true,
     },
     onUp: {
       type: Function as PropType<(index: number) => void>,
-      required: true
+      required: true,
     },
     onDown: {
       type: Function as PropType<(index: number) => void>,
-      required: true
+      required: true,
     },
     index: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props, { slots }) {
     const classesRef = useStyles()
-        
+
     return () => {
       const classes = classesRef.value
       return (
@@ -70,5 +70,5 @@ export default defineComponent({
         </div>
       )
     }
-  }
+  },
 })

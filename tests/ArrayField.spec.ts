@@ -8,11 +8,11 @@ describe('ArrayField', () => {
       props: {
         schema: {
           type: 'array',
-          items: [{ type: 'string' }, { type: 'number' }]
+          items: [{ type: 'string' }, { type: 'number' }],
         },
         value: [],
-        onChange: () => {}
-      }
+        onChange: () => {},
+      },
     })
 
     const arr = wrapper.findComponent(ArrayField)
@@ -28,11 +28,11 @@ describe('ArrayField', () => {
       props: {
         schema: {
           type: 'array',
-          items: { type: 'string' }
+          items: { type: 'string' },
         },
         value: ['1', '2'],
-        onChange: () => {}
-      }
+        onChange: () => {},
+      },
     })
 
     const arr = wrapper.findComponent(ArrayField)
@@ -47,11 +47,11 @@ describe('ArrayField', () => {
       props: {
         schema: {
           type: 'array',
-          items: { type: 'string', enum: ['1', '2', '3'] }
+          items: { type: 'string', enum: ['1', '2', '3'] },
         },
         value: [],
-        onChange: () => {}
-      }
+        onChange: () => {},
+      },
     })
 
     const arr = wrapper.findComponent(ArrayField)

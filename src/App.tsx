@@ -3,7 +3,7 @@ import { defineComponent, reactive, ref, watchEffect } from 'vue'
 import { createUseStyles } from 'vue-jss'
 
 import themeDefault from '../lib/theme-default'
-import  { ThemeProvider, SchemaForm } from '../lib'
+import { SchemaForm, ThemeProvider } from '../lib'
 import MonacoEditor from './components/MonacoEditor'
 
 import demos from './demos'
@@ -38,8 +38,8 @@ const useStyles = createUseStyles({
     marginBottom: 20,
   },
   uiAndValue: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    'display': 'flex',
+    'justifyContent': 'space-between',
     '& > *': {
       width: '46%',
     },
@@ -52,20 +52,20 @@ const useStyles = createUseStyles({
     flexGrow: 1,
   },
   menuButton: {
-    appearance: 'none',
-    borderWidth: 0,
-    backgroundColor: 'transparent',
-    cursor: 'pointer',
-    display: 'inline-block',
-    padding: 15,
-    borderRadius: 5,
+    'appearance': 'none',
+    'borderWidth': 0,
+    'backgroundColor': 'transparent',
+    'cursor': 'pointer',
+    'display': 'inline-block',
+    'padding': 15,
+    'borderRadius': 5,
     '&:hover': {
       background: '#efefef',
     },
   },
   menuSelected: {
-    background: '#337ab7',
-    color: '#fff',
+    'background': '#337ab7',
+    'color': '#fff',
     '&:hover': {
       background: '#337ab7',
     },
@@ -120,7 +120,8 @@ export default defineComponent({
         const json = JSON.parse(value)
         demo[filed] = json
         ;(demo as any)[`${filed}Code`] = value
-      } catch (err) {
+      }
+      catch (err) {
         // some thing
       }
     }

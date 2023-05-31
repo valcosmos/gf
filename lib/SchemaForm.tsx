@@ -1,14 +1,16 @@
 import {
   type PropType,
+  type Ref,
+  computed,
   defineComponent,
   provide,
-  watchEffect,
-  watch,
-  type Ref,
-  shallowRef,
   ref,
-  computed,
+  shallowRef,
+  watch,
+  watchEffect,
 } from 'vue'
+import type { Options } from 'ajv'
+import Ajv from 'ajv'
 import {
   type CommonWidgetDefine,
   type CustomFormatProps,
@@ -18,15 +20,14 @@ import {
 } from './types'
 import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './fields/context'
-import type { Options } from 'ajv'
-import Ajv from 'ajv'
-import { validateFormData, type Language, type ErrorSchema } from './validator'
+import { type ErrorSchema, type Language, validateFormData } from './validator'
 
 interface ContextRef {
-  doValidate: () => Promise<{
-    errors: any[]
-    valid: boolean
-  }>
+  doValidate: () => Promise<any>
+  // doValidate: () => Promise<{
+  //   errors: any[]
+  //   valid: boolean
+  // }>
 }
 
 const defaultAjvOptions: Options = {
@@ -89,7 +90,8 @@ export default defineComponent({
           result[format.name] = format.component
           return result
         }, {} as { [key: string]: CommonWidgetDefine })
-      } else {
+      }
+      else {
         return {}
       }
     })
@@ -102,13 +104,13 @@ export default defineComponent({
         return (schema: Schema) => {
           let newSchema = schema
           customKeywords.forEach((keyword) => {
-            if ((newSchema as any)[keyword!.name]) {
-              newSchema = keyword?.transformSchema(schema)!
-            }
+            if ((newSchema as any)[keyword!.name])
+              newSchema = keyword?.transformSchema(schema)
           })
           return newSchema
         }
-      } else {
+      }
+      else {
         return (s: Schema) => s
       }
     })
@@ -137,7 +139,7 @@ export default defineComponent({
           ? props.customKeywords
           : [props.customKeywords]
         customKeywords.forEach(
-          (keyword) => validatorRef.value?.addKeyword(keyword.definition),
+          keyword => validatorRef.value?.addKeyword(keyword.definition),
           // validatorRef.value?.addKeyword(keyword.name, keyword.definition),
         )
       }
@@ -163,7 +165,8 @@ export default defineComponent({
         props.locale,
         props.customValid,
       )
-      if (index !== validateIndex.value) return
+      if (index !== validateIndex.value)
+        return
       errorSchemaRef.value = result.errorSchema
       // return result
       validateResolveRef.value(result)

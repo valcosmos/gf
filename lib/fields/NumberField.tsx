@@ -4,5 +4,5 @@ export default defineComponent({
   name: 'NumberField',
   setup() {
     return () => <div>number field</div>
-  }
+  },
 })

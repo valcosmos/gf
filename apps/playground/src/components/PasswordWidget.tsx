@@ -1,8 +1,6 @@
-import { withFormItem } from '../../lib/theme-default/FormItem'
-import { CommonWidgetPropsDefine, type CommonWidgetDefine } from '../../lib/types'
 import { defineComponent } from 'vue'
-
-
+import { withFormItem } from '../../lib/theme-default/FormItem'
+import { type CommonWidgetDefine, CommonWidgetPropsDefine } from '../../lib/types'
 
 const PasswordWidget: CommonWidgetDefine = withFormItem(
   defineComponent({

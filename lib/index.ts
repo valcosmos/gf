@@ -6,7 +6,6 @@ import SelectionWidget from './widgets/SelectionWidget'
 import ThemeProvider from './theme'
 import themeDefault from './theme-default'
 
-
 // export default SchemaForm
 export * from './types'
 

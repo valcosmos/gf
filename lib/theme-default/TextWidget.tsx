@@ -1,6 +1,6 @@
 import { computed, defineComponent } from 'vue'
 import { type CommonWidgetDefine, CommonWidgetPropsDefine } from '../types'
-import FormItem, { withFormItem } from './FormItem'
+import { withFormItem } from './FormItem'
 
 const TextWidget: CommonWidgetDefine = withFormItem(
   defineComponent({
@@ -20,8 +20,6 @@ const TextWidget: CommonWidgetDefine = withFormItem(
           color: (props.options && props.options.color) || 'black',
         }
       })
-
-
 
       return () => (
         // <FormItem {...props}>

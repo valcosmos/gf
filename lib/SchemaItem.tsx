@@ -10,10 +10,8 @@ import { useVJSFContext } from './fields/context'
 export default defineComponent({
   name: 'SchemaItem',
   props: FieldPropsDefine,
-  setup (props) {
-    
+  setup(props) {
     const formContext = useVJSFContext()
-
 
     const retrievedSchemaRef = computed(() => {
       const { schema, rootSchema, value } = props
@@ -59,5 +57,5 @@ export default defineComponent({
       const retrievedSchema = retrievedSchemaRef.value
       return <Component {...props} schema={retrievedSchema} />
     }
-  }
+  },
 })

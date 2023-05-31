@@ -14,7 +14,7 @@ function handleChange(v: string) {
 
 const NumberWidget = getWidget(CommonWidgetNames.NumberWidget)
 // <input type="number" :value="value" @input="handleChange">
-const { schema, rootSchema, errorSchema,...rest } = props
+const { schema, rootSchema, errorSchema, ...rest } = props
 </script>
 
 <template>

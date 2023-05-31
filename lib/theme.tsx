@@ -1,22 +1,19 @@
 import {
   type ComputedRef,
+  type ExtractPropTypes,
   type PropType,
   computed,
   defineComponent,
   inject,
   provide,
-  ref,
-  type ExtractPropTypes,
   shallowRef,
   toRaw,
 } from 'vue'
 import type {
-  CommonWidgetDefine,
   CommonWidgetNames,
+  FieldPropsDefine,
   SelectionWidgetNames,
   Theme,
-  UISchema,
-  FieldPropsDefine,
 } from './types'
 import { isObject } from './utils'
 import { useVJSFContext } from './fields/context'
@@ -48,9 +45,9 @@ export function getWidget<T extends SelectionWidgetNames | CommonWidgetNames>(
 
   if (props) {
     const { uiSchema, schema } = props
-    if (uiSchema?.widget && isObject(uiSchema.widget)) {
+    if (uiSchema?.widget && isObject(uiSchema.widget))
       return shallowRef(toRaw(uiSchema.widget))
-    }
+
     if (schema.format) {
       console.log(formContext.formatMapRef.value, schema.format)
       if (formContext.formatMapRef.value[schema.format]) {
@@ -62,7 +59,8 @@ export function getWidget<T extends SelectionWidgetNames | CommonWidgetNames>(
   }
 
   const context = inject<ComputedRef<Theme>>(THEME_PROVIDER_KEY)
-  if (!context) throw new Error('vjsf theme required')
+  if (!context)
+    throw new Error('vjsf theme required')
 
   const widgetRef = computed(() => {
     return context.value.widgets[name]

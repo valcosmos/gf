@@ -1,7 +1,6 @@
 import { computed, defineComponent } from 'vue'
 import {
   CommonWidgetPropsDefine,
-  type CommonWidgetDefine,
   type CustomFormatProps,
 } from '../../lib/types'
 import { withFormItem } from '../../lib/theme-default/FormItem'

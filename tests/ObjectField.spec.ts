@@ -1,25 +1,22 @@
 import { mount } from '@vue/test-utils'
-import  { NumberField, StringField } from 'lib'
+import { NumberField, StringField } from 'lib'
 import TestComponent from './utils/TestComponent'
 
-
 describe('ObjectField', () => {
-
-  let schema:any
-  beforeEach(() => { 
+  let schema: any
+  beforeEach(() => {
     schema = {
       type: 'object',
       properties: {
         name: {
-          type: 'string'
+          type: 'string',
         },
         age: {
-          type: 'number'
-        }
-      }
+          type: 'number',
+        },
+      },
     }
   })
-
 
   it('should render properties to correct fields', () => {
     const wrapper = mount(TestComponent, {
@@ -45,8 +42,8 @@ describe('ObjectField', () => {
         value,
         onChange: (v: any) => {
           value = v
-        }
-      }
+        },
+      },
     })
     const strField = wrapper.findComponent(StringField)
     const numField = wrapper.findComponent(NumberField)
@@ -60,7 +57,7 @@ describe('ObjectField', () => {
 
   it('update string field in object field', async () => {
     let value: any = {
-      name: '123'
+      name: '123',
     }
     const wrapper = mount(TestComponent, {
       props: {
@@ -68,8 +65,8 @@ describe('ObjectField', () => {
         value,
         onChange: (v: any) => {
           value = v
-        }
-      }
+        },
+      },
     })
 
     const strField = wrapper.findComponent(StringField)

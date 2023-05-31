@@ -6,29 +6,27 @@ export default defineComponent({
     value: {},
     onChange: {
       type: Function as PropType<(v: any) => void>,
-      required: true
+      required: true,
     },
     options: {
       type: Array as PropType<{ key: string; value: any }[]>,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     const currentValueRef = ref(props.value)
 
     watch(currentValueRef, (newValue) => {
-      if (newValue !== props.value) {
+      if (newValue !== props.value)
         props.onChange(newValue)
-      }
     })
 
     watch(
       () => props.value,
       (v) => {
-        if (v !== currentValueRef.value) {
+        if (v !== currentValueRef.value)
           currentValueRef.value = v
-        }
-      }
+      },
     )
 
     return () => {
@@ -36,11 +34,11 @@ export default defineComponent({
 
       return (
         <select multiple v-model={currentValueRef.value}>
-          {options.map((op) => (
+          {options.map(op => (
             <option value={op.value}>{op.key}</option>
           ))}
         </select>
       )
     }
-  }
+  },
 })

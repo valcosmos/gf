@@ -5,7 +5,6 @@ import { getWidget } from '../theme'
 import { FieldPropsDefine, type Schema, SelectionWidgetNames } from '../types'
 import { useVJSFContext } from './context'
 import ArrayItemWrapper from './ArrayItemWrapper'
-import { isObject } from 'lib/utils'
 
 /**
  * {
@@ -50,9 +49,9 @@ export default defineComponent({
     const handleUp = (index: number) => {
       const { value } = props
 
-      if (index === 0) {
+      if (index === 0)
         return
-      }
+
       const arr = Array.isArray(value) ? value : []
       const item = arr.splice(index, 1)
       arr.splice(index - 1, 0, item[0])
@@ -62,9 +61,9 @@ export default defineComponent({
       const { value } = props
       const arr = Array.isArray(value) ? value : []
 
-      if (index === arr.length - 1) {
+      if (index === arr.length - 1)
         return
-      }
+
       const item = arr.splice(index, 1)
       arr.splice(index + 1, 0, item[0])
       props.onChange(arr)
@@ -88,7 +87,7 @@ export default defineComponent({
 
         return items.map((s: Schema, index: number) => {
           const itemsUISchema = uiSchema?.items
-          const us = Array.isArray(itemsUISchema) ? itemsUISchema[index] || {} : itemsUISchema || {}
+          const us = Array.isArray(itemsUISchema) ? (itemsUISchema[index] || {}) : (itemsUISchema || {})
 
           return (
             <SchemaItem
@@ -98,11 +97,12 @@ export default defineComponent({
               rootSchema={rootSchema}
               errorSchema={errorSchema?.[index] || {}}
               value={arr[index]}
-              onChange={(v) => handleArrayItemChange(v, index)}
+              onChange={v => handleArrayItemChange(v, index)}
             />
           )
         })
-      } else if (!isSelect) {
+      }
+      else if (!isSelect) {
         const arr = Array.isArray(value) ? value : []
         return arr.map((v: any, index: number) => {
           return (
@@ -120,12 +120,13 @@ export default defineComponent({
                 value={v}
                 key={index}
                 rootSchema={rootSchema}
-                onChange={(v) => handleArrayItemChange(v, index)}
+                onChange={v => handleArrayItemChange(v, index)}
               />
             </ArrayItemWrapper>
           )
         })
-      } else {
+      }
+      else {
         const enumOptions = (schema as any).items.enum
         const options = enumOptions.map((e: any) => ({ key: e, value: e }))
         return (
