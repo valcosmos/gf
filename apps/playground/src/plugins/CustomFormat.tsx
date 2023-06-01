@@ -1,15 +1,12 @@
 import { computed, defineComponent } from 'vue'
-import {
-  CommonWidgetPropsDefine,
-  type CustomFormatProps,
-} from '../../lib/types'
-import { withFormItem } from '../../lib/theme-default/FormItem'
+import { CommonWidgetPropsDefine, type CustomFormatProps } from 'gf'
+import { withFormItem } from 'gf'
 
 export const CustomFormat: CustomFormatProps = {
   name: 'color',
   definition: {
     type: 'string',
-    validate: /^#[0-9A-Fa-f]{6}$/,
+    validate: /^#[0-9A-Fa-f]{6}$/
   },
   component: withFormItem(
     defineComponent({
@@ -25,7 +22,7 @@ export const CustomFormat: CustomFormatProps = {
 
         const styleRef = computed(() => {
           return {
-            color: (props.options && props.options.color) || 'black',
+            color: (props.options && props.options.color) || 'black'
           }
         })
 
@@ -40,7 +37,7 @@ export const CustomFormat: CustomFormatProps = {
           />
           // </FormItem>
         )
-      },
-    }),
-  ),
+      }
+    })
+  )
 }

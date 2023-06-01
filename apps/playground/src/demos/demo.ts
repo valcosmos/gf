@@ -1,4 +1,4 @@
-import PasswordWidget from '@/components/PasswordWidget'
+import PasswordWidget from '../components/PasswordWidget'
 
 export default {
   name: 'Demo',
@@ -11,25 +11,24 @@ export default {
         type: 'string',
         // minLength: 10,
         test: true,
-        title: 'password',
+        title: 'password'
       },
       pass2: {
         type: 'string',
         minLength: 10,
-        title: 'retry password',
+        title: 'retry password'
       },
       color: {
         title: 'input color',
         type: 'string',
-        format: 'color',
-      },
-    },
+        format: 'color'
+      }
+    }
   },
   async customerValidate(data: any, errors: any) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        if (data.pass1 !== data.pass2)
-          errors.pass2.addError('密码必须相同')
+        if (data.pass1 !== data.pass2) errors.pass2.addError('密码必须相同')
 
         resolve(true)
       }, 2000)
@@ -38,12 +37,12 @@ export default {
   uiSchema: {
     properties: {
       pass1: {
-        widget: PasswordWidget,
+        widget: PasswordWidget
       },
       pass2: {
-        color: 'red',
-      },
-    },
+        color: 'red'
+      }
+    }
   },
-  default: 'Cupid',
+  default: 'Cupid'
 }

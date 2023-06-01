@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
-import { withFormItem } from '../../lib/theme-default/FormItem'
-import { type CommonWidgetDefine, CommonWidgetPropsDefine } from '../../lib/types'
+import { withFormItem } from 'gf'
+import { type CommonWidgetDefine, CommonWidgetPropsDefine } from 'gf'
 
 const PasswordWidget: CommonWidgetDefine = withFormItem(
   defineComponent({
@@ -19,8 +19,8 @@ const PasswordWidget: CommonWidgetDefine = withFormItem(
         <input type="password" value={props.value} onInput={handleChange} />
         // </FormItem>
       )
-    },
-  }),
+    }
+  })
 )
 
 export default PasswordWidget

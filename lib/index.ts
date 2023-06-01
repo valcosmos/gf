@@ -5,6 +5,7 @@ import ArrayField from './fields/ArrayField'
 import SelectionWidget from './widgets/SelectionWidget'
 import ThemeProvider from './theme'
 import themeDefault from './theme-default'
+import { withFormItem } from './theme-default/FormItem'
 
 // export default SchemaForm
 export * from './types'
@@ -17,4 +18,5 @@ export {
   ThemeProvider,
   SchemaForm,
   themeDefault,
+  withFormItem
 }

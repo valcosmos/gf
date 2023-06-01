@@ -1,7 +1,7 @@
 import type Ajv from 'ajv'
 import i18n from 'ajv-i18n'
 import type { ErrorObject } from 'ajv'
-import toPath from 'lodash.topath'
+import { toPath } from 'lodash-es'
 import type { Schema } from './types'
 import { isObject } from './utils'
 
@@ -20,8 +20,7 @@ export type ErrorSchema = {
 } & { __errors?: string[] }
 
 function transformErrors(errors: ErrorObject[] | null | undefined): TransformedErrorObject[] {
-  if (errors === null || errors === undefined)
-    return []
+  if (errors === null || errors === undefined) return []
 
   return (
     errors?.map(({ message, instancePath, keyword, params, schemaPath }) => {
@@ -30,15 +29,14 @@ function transformErrors(errors: ErrorObject[] | null | undefined): TransformedE
         property: `${instancePath}`,
         message,
         params,
-        schemaPath,
+        schemaPath
       }
     }) || []
   )
 }
 
 function toErrorSchema(errors: TransformedErrorObject[]) {
-  if (errors.length < 1)
-    return {}
+  if (errors.length < 1) return {}
 
   return errors.reduce((errorSchema, error) => {
     const { property, message } = error
@@ -47,21 +45,17 @@ function toErrorSchema(errors: TransformedErrorObject[]) {
     console.log(path)
     let parent = errorSchema
 
-    if (path.length > 0 && path[0] === '')
-      path.splice(0, 1)
+    if (path.length > 0 && path[0] === '') path.splice(0, 1)
 
     for (const segment of path.slice(0)) {
-      if (!(segment in parent))
-        (parent as any)[segment] = {}
+      if (!(segment in parent)) (parent as any)[segment] = {}
 
       parent = parent[segment]
     }
     if (Array.isArray(parent.__errors)) {
       parent.__errors = parent.__errors.concat(message || '')
-    }
-    else {
-      if (message)
-        parent.__errors = [message]
+    } else {
+      if (message) parent.__errors = [message]
     }
     return errorSchema
   }, {} as ErrorSchema)
@@ -72,13 +66,12 @@ export async function validateFormData(
   formData: any,
   schema: Schema,
   locale: Language = 'zh',
-  customValidate?: (data: any, errors: any) => void,
+  customValidate?: (data: any, errors: any) => void
 ) {
   let validationError: any
   try {
     validator.validate(schema, formData)
-  }
-  catch (error) {
+  } catch (error) {
     validationError = error
   }
 
@@ -91,8 +84,7 @@ export async function validateFormData(
 
   const errorSchema = toErrorSchema(errors)
 
-  if (!customValidate)
-    return { errors, errorSchema, valid: errors.length === 0 }
+  if (!customValidate) return { errors, errorSchema, valid: errors.length === 0 }
 
   /**
    * {
@@ -107,7 +99,7 @@ export async function validateFormData(
   return {
     errors,
     errorSchema: newErrorSchema,
-    valid: errors.length === 0,
+    valid: errors.length === 0
   }
 }
 
@@ -119,11 +111,8 @@ function createErrorProxy() {
       if (key === 'addError') {
         return (msg: string) => {
           const __errors = Reflect.get(target, '__errors', receiver)
-          if (__errors && Array.isArray(__errors))
-            __errors.push(msg)
-
-          else
-            (target as any).__errors = [msg]
+          if (__errors && Array.isArray(__errors)) __errors.push(msg)
+          else (target as any).__errors = [msg]
         }
       }
 
@@ -135,7 +124,7 @@ function createErrorProxy() {
       }
 
       return res
-    },
+    }
   })
 }
 
@@ -149,8 +138,7 @@ export function mergeObjects(obj1: any, obj2: any, concatArrays = false) {
       acc[key] = mergeObjects(left, right, concatArrays)
     else if (concatArrays && Array.isArray(left) && Array.isArray(right))
       acc[key] = left.concat(right)
-    else
-      acc[key] = right
+    else acc[key] = right
 
     return acc
   }, acc)

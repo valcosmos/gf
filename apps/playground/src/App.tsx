@@ -6,7 +6,7 @@ import { SchemaForm, ThemeProvider, themeDefault } from 'gf'
 import MonacoEditor from './components/MonacoEditor'
 
 import demos from './demos'
-import { CustomFormat } from './plugins/customFormat'
+import { CustomFormat } from './plugins/CustomFormat'
 import { keyword } from './plugins/CustomKeyword'
 
 // TODO: 在lib中export
@@ -23,52 +23,52 @@ const useStyles = createUseStyles({
     flexDirection: 'column',
     height: '100%',
     width: '1200px',
-    margin: '0 auto',
+    margin: '0 auto'
   },
   menu: {
-    marginBottom: 20,
+    marginBottom: 20
   },
   code: {
     width: 700,
-    flexShrink: 0,
+    flexShrink: 0
   },
   codePanel: {
     minHeight: 400,
-    marginBottom: 20,
+    marginBottom: 20
   },
   uiAndValue: {
-    'display': 'flex',
-    'justifyContent': 'space-between',
+    display: 'flex',
+    justifyContent: 'space-between',
     '& > *': {
-      width: '46%',
-    },
+      width: '46%'
+    }
   },
   content: {
-    display: 'flex',
+    display: 'flex'
   },
   form: {
     padding: '0 20px',
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
-    'appearance': 'none',
-    'borderWidth': 0,
-    'backgroundColor': 'transparent',
-    'cursor': 'pointer',
-    'display': 'inline-block',
-    'padding': 15,
-    'borderRadius': 5,
+    appearance: 'none',
+    borderWidth: 0,
+    backgroundColor: 'transparent',
+    cursor: 'pointer',
+    display: 'inline-block',
+    padding: 15,
+    borderRadius: 5,
     '&:hover': {
-      background: '#efefef',
-    },
+      background: '#efefef'
+    }
   },
   menuSelected: {
-    'background': '#337ab7',
-    'color': '#fff',
+    background: '#337ab7',
+    color: '#fff',
     '&:hover': {
-      background: '#337ab7',
-    },
-  },
+      background: '#337ab7'
+    }
+  }
 })
 
 export default defineComponent({
@@ -90,7 +90,7 @@ export default defineComponent({
       schemaCode: '',
       dataCode: '',
       uiSchemaCode: '',
-      customerValidate: undefined,
+      customerValidate: undefined
     })
 
     watchEffect(() => {
@@ -119,8 +119,7 @@ export default defineComponent({
         const json = JSON.parse(value)
         demo[filed] = json
         ;(demo as any)[`${filed}Code`] = value
-      }
-      catch (err) {
+      } catch (err) {
         // some thing
       }
     }
@@ -152,7 +151,7 @@ export default defineComponent({
                 <button
                   class={{
                     [classes.menuButton]: true,
-                    [classes.menuSelected]: index === selected,
+                    [classes.menuSelected]: index === selected
                   }}
                   onClick={() => (selectedRef.value = index)}
                 >
@@ -212,5 +211,5 @@ export default defineComponent({
         // </StyleThemeProvider>
       )
     }
-  },
+  }
 })
