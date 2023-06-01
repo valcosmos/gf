@@ -1,11 +1,11 @@
 import { URL, fileURLToPath } from 'node:url'
 
+import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-
+import commonjs from '@rollup/plugin-commonjs'
 import dts from 'vite-plugin-dts'
-import commonjs from 'vite-plugin-commonjs'
 
 // const prefix = 'monaco-editor/esm/vs'
 // https://vitejs.dev/config/
@@ -13,14 +13,11 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx({ mergeProps: false }),
-    commonjs(),
 
     dts({
       insertTypesEntry: true,
-      compilerOptions: {
-        jsx: 1
-      },
-      include: './lib/**'
+      tsConfigFilePath: resolve(__dirname, 'tsconfig.json'),
+      include: resolve(__dirname, '/lib', '**')
     })
     // monacoEditorPlugin({}),
   ],
@@ -49,6 +46,7 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ['vue'],
+      plugins: [commonjs()],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
