@@ -17,8 +17,8 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       tsConfigFilePath: resolve(__dirname, 'tsconfig.json'),
-      include: resolve(__dirname, '/lib', '**')
-    })
+      include: resolve(__dirname, 'lib', '**'),
+    }),
     // monacoEditorPlugin({}),
   ],
   // optimizeDeps: {
@@ -26,8 +26,8 @@ export default defineConfig({
   // },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
   },
   // optimizeDeps: {
   //   include: [
@@ -42,7 +42,7 @@ export default defineConfig({
     sourcemap: true,
     lib: {
       entry: './lib/index.ts',
-      name: 'index'
+      name: 'index',
     },
     rollupOptions: {
       external: ['vue'],
@@ -51,9 +51,9 @@ export default defineConfig({
         // Provide global variables to use in the UMD build
         // for externalized deps
         globals: {
-          vue: 'Vue'
-        }
-      }
+          vue: 'Vue',
+        },
+      },
       // input: './lib/index.ts',
       // output: {
       //   manualChunks: {
@@ -64,6 +64,6 @@ export default defineConfig({
       //     editorWorker: [`${prefix}/editor/editor.worker`]
       //   }
       // }
-    }
-  }
+    },
+  },
 })
