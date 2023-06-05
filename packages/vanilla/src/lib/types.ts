@@ -58,34 +58,27 @@ export interface FieldPropsDefineProps {
 
 export type CommonFieldDefine = DefineComponent<FieldPropsDefineProps>
 
-export const CommonWidgetPropsDefine = {
-  schema: {
-    type: Object as PropType<Schema>,
-    required: true
-  },
-  value: {},
-  onChange: {
-    type: Function as PropType<(v: any) => void>,
-    required: true
-  },
-  errors: {
-    type: Array as PropType<string[]>
-  },
-  options: {
-    type: Object as PropType<{ [keys: string]: any }>
-  }
-} as const
+export interface CommonWidgetProps {
+  schema: Schema
+  value?: any
+  errors?: string[]
+  options?: Record<string, any>
+}
 
-export const SelectWidgetPropsDefine = {
-  ...CommonWidgetPropsDefine,
-  options: {
-    type: Array as PropType<{ key: string; value: any }[]>,
-    required: true
-  }
-} as const
+// export const SelectWidgetPropsDefine = {
+//   ...CommonWidgetPropsDefine,
+//   options: {
+//     type: Array as PropType<{ key: string; value: any }[]>,
+//     required: true
+//   }
+// } as const
 
-export type CommonWidgetDefine = DefineComponent<typeof CommonWidgetPropsDefine, {}, {}>
-export type SelectionWidgetDefine = DefineComponent<typeof SelectWidgetPropsDefine, {}, {}>
+export interface SelectWidgetProps extends Omit<CommonWidgetProps, 'options'> {
+  options: { key: string; value: any }[]
+}
+
+export type CommonWidgetDefine = DefineComponent<CommonWidgetProps, {}, {}>
+export type SelectionWidgetDefine = DefineComponent<SelectWidgetProps, {}, {}>
 
 export enum SelectionWidgetNames {
   SelectionWidget = 'SelectionWidget'
