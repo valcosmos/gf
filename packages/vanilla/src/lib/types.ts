@@ -19,7 +19,7 @@ interface SchemaRef {
 
 export interface EmitProps {
   // change: [value: string]
-  (e: 'change', value: string): void
+  (e: 'change', value: any): void
 }
 
 export interface Schema {
