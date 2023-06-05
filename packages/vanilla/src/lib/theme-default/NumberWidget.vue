@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { toRefs } from 'vue'
+import FormItem from './FormItem.vue';
 import type { CommonWidgetProps, EmitProps } from '../types'
 
 defineOptions({
@@ -20,7 +21,9 @@ const handleChange = (e: any) => {
 </script>
 
 <template>
-  <input type="number" :value="value" @change="handleChange" />
+  <FormItem v-bind="props">
+    <input type="number" :value="value" @change="handleChange" />
+  </FormItem>
 </template>
 
 <style scoped></style>
