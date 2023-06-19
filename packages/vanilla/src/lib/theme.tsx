@@ -1,35 +1,9 @@
-import {
-  type ComputedRef,
-  type PropType,
-  computed,
-  defineComponent,
-  inject,
-  provide,
-  shallowRef,
-  toRaw
-} from 'vue'
+import { type ComputedRef, computed, inject, shallowRef, toRaw } from 'vue'
 import type { CommonWidgetNames, FieldPropsDefineProps, SelectionWidgetNames, Theme } from './types'
 import { isObject } from './utils'
 import { useVJSFContext } from './fields/context'
 
-const THEME_PROVIDER_KEY = Symbol('THEME_PROVIDER_KEY')
-
-const ThemeProvider = defineComponent({
-  name: 'VJSFThemeProvider',
-  props: {
-    theme: {
-      type: Object as PropType<Theme>,
-      required: true
-    }
-  },
-  setup(props, { slots }) {
-    const context = computed(() => props.theme)
-
-    provide(THEME_PROVIDER_KEY, context)
-
-    return () => slots.default?.()
-  }
-})
+export const THEME_PROVIDER_KEY = Symbol('THEME_PROVIDER_KEY')
 
 export function getWidget<T extends SelectionWidgetNames | CommonWidgetNames>(
   name: T,
@@ -60,5 +34,3 @@ export function getWidget<T extends SelectionWidgetNames | CommonWidgetNames>(
 
   return widgetRef
 }
-
-export default ThemeProvider
