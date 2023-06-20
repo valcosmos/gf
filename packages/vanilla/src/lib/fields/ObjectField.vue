@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {  toRefs } from 'vue'
-import { EmitProps, FieldPropsDefineProps } from '../types'
+import { toRefs } from 'vue'
+import type { EmitProps, FieldPropsDefineProps } from '../types'
 import { isObject } from '../utils'
 import { useVJSFContext } from './context'
 
