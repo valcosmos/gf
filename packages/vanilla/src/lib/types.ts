@@ -17,7 +17,7 @@ interface SchemaRef {
   $ref: string
 }
 
-export interface EmitProps {
+export type EmitProps = {
   // change: [value: string]
   (e: 'change', value: any): void
 }
