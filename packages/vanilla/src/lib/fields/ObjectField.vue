@@ -31,7 +31,7 @@ const handleObjectFieldChange = (key: string, v: string) => {
 }
 
 const { SchemaItem } = context
-const properties = schema.value.properties || {}
+const properties = schema.value?.properties || {}
 const currentValue: any = isObject(propsValue.value) ? propsValue.value : {}
 </script>
 

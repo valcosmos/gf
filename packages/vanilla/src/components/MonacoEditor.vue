@@ -73,7 +73,7 @@ watch(
     <div class="title">
       <span>{{ title }}</span>
     </div>
-    <div class="code" ref="{containerRef}"></div>
+    <div class="code" ref="containerRef"></div>
   </div>
 </template>
 

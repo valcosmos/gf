@@ -159,7 +159,7 @@ provide(SchemaFormContextKey, { SchemaItem, formatMapRef, transformSchemaRef })
 <template>
   <SchemaItem
     :schema="schema"
-    value="value"
+    :value="value"
     :root-schema="schema"
     @change="handleChange"
     :error-schema="errorSchemaRef"

@@ -4,8 +4,11 @@ import type { Schema, UISchema } from './lib'
 
 import ThemeProvider from './lib/ThemeProvider.vue'
 import demos from './demos'
-import  CustomFormat  from './plugins/CustomFormat.vue'
+import CustomFormat from './plugins/CustomFormat.vue'
 import { keyword } from './plugins/CustomKeyword'
+import MonacoEditor from './components/MonacoEditor.vue'
+
+import SchemaForm from './lib/SchemaForm.vue'
 
 import themeDefault from './lib/theme-default'
 
@@ -108,7 +111,7 @@ function validateForm() {
             @change="handleChange"
             :uiSchema="demo.uiSchema || {}"
             :value="demo.data"
-            contextRef="contextRef"
+            :contextRef="contextRef"
             :customFormats="CustomFormat"
             :customKeywords="keyword"
             :customValid="demo.customerValidate"
