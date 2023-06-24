@@ -16,18 +16,22 @@ describe('JSONSchemaForm', () => {
     const numberField = wrapper.findComponent(NumberField)
     expect(numberField.exists()).toBeTruthy()
 
-    // const input = numberField.find('input')
-    // expect(input.exists()).toBeTruthy()
+    const input = numberField.find('input')
+    expect(input.exists()).toBeTruthy()
     // input.element.value = '1'
     // await input.trigger('input')
-    // expect(value).toEqual(1)
-  
+    input.setValue('1')
+    expect(input.element.value).toBe('1')
 
-    wrapper.vm.$emit('change')
-    wrapper.vm.$emit('change', 1)
+    input.element.value = 'n'
+    await input.trigger('input')
+    expect(input.element.value).toBe('')
+
+    await wrapper.vm.$emit('change')
+    await wrapper.vm.$emit('change', 1)
 
     expect(wrapper.emitted().change).toBeTruthy()
-    expect(wrapper.emitted().change.length).toBe(2)
-    expect(wrapper.emitted().change[1]).toEqual([1])
+    expect(wrapper.emitted().change.length).toBe(4)
+    expect(wrapper.emitted().change[3]).toEqual([1])
   })
 })

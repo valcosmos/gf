@@ -15,7 +15,7 @@ defineOptions({
 function handleChange (e: any) {
   const value = e.target.value
   const num = Number(value)
-  emits('change', Number.isNaN(num) ? undefined : num)
+  emits('change', Number.isNaN(num) ? '' : num)
 }
 </script>
 
