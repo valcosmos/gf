@@ -1,24 +1,26 @@
 <script setup lang="ts">
-import { CommonWidgetNames, FieldPropsDefine } from '../types'
-import { getWidget } from '../theme'
+import type { EmitProps, FieldProps } from 'lib/types'
+import { toRefs } from 'vue';
 
-const props = defineProps(FieldPropsDefine)
+const props = defineProps<FieldProps>()
 
-function handleChange(v: string) {
-  const value = Number(v)
-  if (isNaN(value))
-    props.onChange(undefined)
-  else
-    props.onChange(value)
+const emits = defineEmits<EmitProps>()
+
+const { value } = toRefs(props)
+
+defineOptions({
+  name: 'NumberField'
+})
+
+function handleChange (e: any) {
+  const value = e.target.value
+  const num = Number(value)
+  emits('change', Number.isNaN(num) ? undefined : num)
 }
-
-const NumberWidget = getWidget(CommonWidgetNames.NumberWidget)
-// <input type="number" :value="value" @input="handleChange">
-const { schema, rootSchema, errorSchema, ...rest } = props
 </script>
 
 <template>
-  <NumberWidget v-bind="rest" :schema="schema" :errors="errorSchema?.__errors" :on-change="handleChange" />
+  <input type="number" :value="value" @input="handleChange" />
 </template>
 
 <style scoped></style>

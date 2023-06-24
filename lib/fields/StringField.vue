@@ -1,20 +1,25 @@
 <script setup lang="ts">
-import { FieldPropsDefine } from '../types'
+import { toRefs } from 'vue'
+import type { EmitProps, FieldProps } from '../types'
 
-const props = defineProps(FieldPropsDefine)
+const props = defineProps<FieldProps>()
 
-function handleChange(v: string) {
-  console.log(v)
+const emits = defineEmits<EmitProps>()
 
-  props.onChange(v)
+const { value } = toRefs(props)
+
+defineOptions({
+  name: 'StringField'
+})
+
+function handleChange(e: any) {
+  emits('change', e.target.value)
 }
 
-// <!-- <input type="text" :value="value" @input="handleChange"> -->
-const { schema, rootSchema, ...rest } = props
 </script>
 
 <template>
-  <TextWidgetRef v-bind="rest" @onChange="handleChange" />
+  <input type="text" :value="value" @input="handleChange" />
 </template>
 
-<style scoped />
+<style scoped></style>
