@@ -69,7 +69,7 @@ watch(
 </script>
 
 <template>
-  <div class="container">
+  <div class="editor-container">
     <div class="title">
       <span>{{ title }}</span>
     </div>
@@ -78,7 +78,7 @@ watch(
 </template>
 
 <style lang="scss" scoped>
-.container {
+.editor-container {
   border: 1px solid #eee;
   display: flex;
   flex-direction: column;

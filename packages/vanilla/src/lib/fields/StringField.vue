@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, defineProps, toRefs } from 'vue'
+import { computed, toRefs } from 'vue'
 
-import { CommonWidgetNames, EmitProps, FieldPropsDefineProps } from '../types'
+import { CommonWidgetNames, type EmitProps, type FieldPropsDefineProps } from '../types'
 
 import { getWidget } from '../theme'
 
