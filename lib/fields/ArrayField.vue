@@ -2,7 +2,8 @@
 import { computed } from 'vue'
 import { useContext } from '../context'
 import type { EmitProps, FieldProps, Schema } from '../types'
-import SelectionWidget from '../widgets/SelectionWidget.vue'
+
+// import SelectionWidget from '../widgets/SelectionWidget.vue'
 import ArrayItemWrapper from './ArrayItemWrapper.vue'
 
 const props = defineProps<FieldProps>()
@@ -74,6 +75,10 @@ function handleDown(index: number) {
   arr.splice(index + 1, 0, item[0])
   emits('change', arr)
 }
+
+const context = useContext()
+
+const SelectionWidget = computed(()=>context.theme.widgets.SelectionWidget)
 </script>
 
 <template>

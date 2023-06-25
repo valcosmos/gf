@@ -2,6 +2,7 @@
 import { type Ref, reactive, ref, watchEffect } from 'vue'
 
 import { SchemaForm } from '../lib'
+import themeDefault from '../lib/theme-default'
 import demos from './demos/index'
 
 import MonacoEditor from './components/MonacoEditor.vue'
@@ -111,7 +112,12 @@ function validateForm() {
         </div>
       </div>
       <div class="form">
-        <SchemaForm :schema="demo.schema" :value="demo.data" @change="handleChange" />
+        <SchemaForm
+          :theme="themeDefault"
+          :schema="demo.schema"
+          :value="demo.data"
+          @change="handleChange"
+        />
         <button @click="validateForm">校验</button>
       </div>
     </div>

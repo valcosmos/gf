@@ -1,3 +1,4 @@
+import type { DefineComponent } from 'vue'
 import type SchemaItem from './SchemaItem.vue'
 
 export enum SchemaTypes {
@@ -51,4 +52,19 @@ export interface FieldProps {
   schema: Schema
   value: any
   rootSchema: Schema
+}
+
+
+export interface CommonWidgetProps { 
+  value: any 
+}
+
+export type CommonWidgetDefine = DefineComponent<CommonWidgetProps, {}, {}>
+
+export interface Theme {
+  widgets: {
+    SelectionWidget: CommonWidgetDefine
+    TextWidget: CommonWidgetDefine
+    NumberWidget: CommonWidgetDefine
+  }
 }
