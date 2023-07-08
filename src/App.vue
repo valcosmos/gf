@@ -25,14 +25,14 @@ const demo = reactive<{
   uiSchemaCode: string
   customerValidate?: (data: any, error: any) => void
 }>({
-  schema: null,
-  data: {},
-  uiSchema: {},
-  schemaCode: '',
-  dataCode: '',
-  uiSchemaCode: '',
-  customerValidate: undefined
-})
+      schema: null,
+      data: {},
+      uiSchema: {},
+      schemaCode: '',
+      dataCode: '',
+      uiSchemaCode: '',
+      customerValidate: undefined,
+    })
 
 watchEffect(() => {
   const index = selectedRef.value
@@ -56,7 +56,8 @@ function handleCodeChange(filed: 'schema' | 'data' | 'uiSchema', value: string) 
     const json = JSON.parse(value)
     demo[filed] = json
     ;(demo as any)[`${filed}Code`] = value
-  } catch (err) {
+  }
+  catch (err) {
     // some thing
   }
 }
@@ -118,7 +119,9 @@ function validateForm() {
           :value="demo.data"
           @change="handleChange"
         />
-        <button @click="validateForm">校验</button>
+        <button @click="validateForm">
+          校验
+        </button>
       </div>
     </div>
   </div>

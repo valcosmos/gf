@@ -25,13 +25,23 @@ const emits = defineEmits<ArrayItemWrapperEmitType>()
 <template>
   <div class="container">
     <div class="actions">
-      <button class="action" @click="() => emits('add', props.index)">新增</button>
-      <button class="action" @click="() => emits('delete', props.index)">删除</button>
-      <button class="action" @click="() => emits('up', props.index)">上移</button>
-      <button class="action" @click="() => emits('down', props.index)">下移</button>
+      <button class="action" @click="() => emits('add', props.index)">
+        新增
+      </button>
+      <button class="action" @click="() => emits('delete', props.index)">
+        删除
+      </button>
+      <button class="action" @click="() => emits('up', props.index)">
+        上移
+      </button>
+      <button class="action" @click="() => emits('down', props.index)">
+        下移
+      </button>
     </div>
     <!-- <div class="content">{{ slots.default?.() }}</div> -->
-    <div class="content"><slot /></div>
+    <div class="content">
+      <slot />
+    </div>
   </div>
 </template>
 

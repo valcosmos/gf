@@ -8,15 +8,15 @@ export default mergeConfig(
   defineConfig({
     test: {
       coverage: {
-        provider: 'v8'
+        provider: 'v8',
       },
       globals: true,
       environment: 'jsdom',
       exclude: [...configDefaults.exclude, 'e2e/*'],
       root: fileURLToPath(new URL('./', import.meta.url)),
       transformMode: {
-        web: [/\.[jt]sx$/]
-      }
-    }
-  })
+        web: [/\.[jt]sx$/],
+      },
+    },
+  }),
 )

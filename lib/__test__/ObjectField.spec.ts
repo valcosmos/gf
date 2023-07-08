@@ -11,17 +11,17 @@ describe('ObjectField', () => {
           properties: {
             name: {
               title: 'name',
-              type: 'string'
+              type: 'string',
             },
             age: {
               title: 'age',
-              type: 'number'
-            }
+              type: 'number',
+            },
           },
 
         },
-        value: {}
-      }
+        value: {},
+      },
     })
 
     const strField = wrapper.findComponent(StringField)

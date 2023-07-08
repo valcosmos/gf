@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 
+defineOptions({
+  name: 'SelectionWidget',
+})
 const props = defineProps<SelectionProps>()
 const emits = defineEmits<SelectionEmitProps>()
-
-defineOptions({
-  name: 'SelectionWidget'
-})
 
 interface SelectionProps {
   value: any
@@ -23,24 +22,24 @@ type SelectionEmitProps = Omit<
 const currentRef = ref(props.value)
 
 watch(currentRef, (newValue) => {
-  if (newValue !== props.value) {
+  if (newValue !== props.value)
     emits('change', newValue)
-  }
 })
 
 watch(
   () => props.value,
   (v) => {
-    if (v !== currentRef.value) {
+    if (v !== currentRef.value)
       currentRef.value = v
-    }
-  }
+  },
 )
 </script>
 
 <template>
   <select v-model="currentRef" multiple>
-    <option v-for="(op, index) in options" :key="index" :value="op.value">{{ op.key }}</option>
+    <option v-for="(op, index) in options" :key="index" :value="op.value">
+      {{ op.key }}
+    </option>
   </select>
 </template>
 

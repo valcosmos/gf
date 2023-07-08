@@ -28,19 +28,19 @@ onMounted(() => {
     formatOnPaste: true,
     tabSize: 2,
     minimap: {
-      enabled: false
-    }
+      enabled: false,
+    },
   }))
 
   _subscription = editor.onDidChangeModelContent((event) => {
-    if (!__prevent_trigger_change_event) 
-emits('change', editor.getValue(), event)
+    if (!__prevent_trigger_change_event)
+      emits('change', editor.getValue(), event)
   })
 })
 
 onBeforeUnmount(() => {
-  if (_subscription) 
-_subscription.dispose()
+  if (_subscription)
+    _subscription.dispose()
 })
 
 watch(
@@ -57,9 +57,9 @@ watch(
         [
           {
             range: model.getFullModelRange(),
-            text: v
-          }
-        ]
+            text: v,
+          },
+        ],
       )
       editor.pushUndoStop()
       __prevent_trigger_change_event = false
@@ -67,7 +67,7 @@ watch(
     // if (v !== editorRef.value.getValue()) {
     //   editorRef.value.setValue(v)
     // }
-  }
+  },
 )
 </script>
 
@@ -76,7 +76,7 @@ watch(
     <div class="title">
       <span>{{ title }}</span>
     </div>
-    <div ref="containerRef" class="code"></div>
+    <div ref="containerRef" class="code" />
   </div>
 </template>
 

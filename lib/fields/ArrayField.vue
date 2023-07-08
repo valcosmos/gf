@@ -6,12 +6,11 @@ import type { EmitProps, FieldProps, Schema } from '../types'
 // import SelectionWidget from '../widgets/SelectionWidget.vue'
 import ArrayItemWrapper from './ArrayItemWrapper.vue'
 
+defineOptions({
+  name: 'ArrayField',
+})
 const props = defineProps<FieldProps>()
 const emits = defineEmits<EmitProps>()
-
-defineOptions({
-  name: 'ArrayField'
-})
 
 const { SchemaItem } = useContext()
 
@@ -30,7 +29,7 @@ const isSelect = props.schema.items && Boolean((props.schema.items as any).enum)
 const options = computed(() => {
   if (isSelect) {
     const enumOptions = (props.schema.items as any).enum as Array<any>
-    return enumOptions.map((item) => ({ key: item, value: item }))
+    return enumOptions.map(item => ({ key: item, value: item }))
   }
   return []
 })
@@ -53,9 +52,8 @@ function handleDelete(index: number) {
 function handleUp(index: number) {
   const value = props.value
 
-  if (index === 0) {
+  if (index === 0)
     return
-  }
 
   const arr = Array.isArray(value) ? value : []
   const item = arr.splice(index, 1)
@@ -67,9 +65,8 @@ function handleDown(index: number) {
   const value = props.value
   const arr = Array.isArray(value) ? value : []
 
-  if (index === arr.length - 1) {
+  if (index === arr.length - 1)
     return
-  }
 
   const item = arr.splice(index, 1)
   arr.splice(index + 1, 0, item[0])
@@ -78,7 +75,7 @@ function handleDown(index: number) {
 
 const context = useContext()
 
-const SelectionWidget = computed(()=>context.theme.widgets.SelectionWidget)
+const SelectionWidget = computed(() => context.theme.widgets.SelectionWidget)
 </script>
 
 <template>

@@ -4,15 +4,14 @@ export default defineComponent({
   props: {
     count: {
       type: Array<number>,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   setup(props) {
     const { count } = props
 
     return () => {
-
       return <div>{count}</div>
     }
-  }
+  },
 })

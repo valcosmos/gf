@@ -4,13 +4,13 @@ import { isObject } from '../utils'
 import { useContext } from '../context'
 import type { EmitProps, FieldProps } from '../types'
 
+defineOptions({
+  name: 'ObjectField',
+})
+
 const props = defineProps<FieldProps>()
 
 const emits = defineEmits<EmitProps>()
-
-defineOptions({
-  name: 'ObjectField'
-})
 
 const context = useContext()
 
@@ -21,11 +21,11 @@ const properties = props.schema.properties || {}
 function handleObjectFieldChange(key: string, v: any) {
   const value = isObject(props.value) ? props.value : {}
 
-  if (v === undefined) {
+  if (v === undefined)
     delete value[key]
-  } else {
+  else
     value[key] = v
-  }
+
   emits('change', value)
 }
 

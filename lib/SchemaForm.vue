@@ -4,14 +4,13 @@ import { type EmitProps, type Schema, type Theme } from './types'
 import SchemaItem from './SchemaItem.vue'
 import { SchemaFormContextKey } from './context'
 
+defineOptions({
+  name: 'SchemaForm',
+})
 const props = defineProps<SchemaFormProps>()
 const emits = defineEmits<EmitProps>()
 
 const { value } = toRefs(props)
-
-defineOptions({
-  name: 'SchemaForm'
-})
 
 interface SchemaFormProps {
   schema: Schema
@@ -25,7 +24,7 @@ function handleChange(v: any) {
 
 const context = {
   SchemaItem,
-  theme: props.theme
+  theme: props.theme,
 }
 
 provide(SchemaFormContextKey, context)

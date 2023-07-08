@@ -9,25 +9,25 @@ import ObjectField from './fields/ObjectField.vue'
 import { retrieveSchema } from './utils'
 import ArrayField from './fields/ArrayField.vue'
 
+defineOptions({ name: 'SchemaItems' })
+
 const props = defineProps<FieldProps>()
 
 const emits = defineEmits<EmitProps>()
 
-defineOptions({ name: 'SchemaItems' })
-
 const { value } = toRefs(props)
 
 const retrievedSchemaRef = computed(() =>
-  retrieveSchema(props.schema, props.rootSchema, props.value)
+  retrieveSchema(props.schema, props.rootSchema, props.value),
 )
 
 const currentComponent = computed(() => {
   let Component:
-    | typeof StringField
-    | typeof NumberField
-    | typeof ObjectField
-    | typeof ArrayField
-    | undefined
+  | typeof StringField
+  | typeof NumberField
+  | typeof ObjectField
+  | typeof ArrayField
+  | undefined
   switch (props.schema.type) {
     case SchemaTypes.STRING: {
       Component = StringField

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { EmitProps, FieldProps } from 'lib/types'
-import { toRefs } from 'vue';
+import { toRefs } from 'vue'
+
+defineOptions({
+  name: 'NumberField',
+})
 
 const props = defineProps<FieldProps>()
 
@@ -8,11 +12,7 @@ const emits = defineEmits<EmitProps>()
 
 const { value } = toRefs(props)
 
-defineOptions({
-  name: 'NumberField'
-})
-
-function handleChange (e: any) {
+function handleChange(e: any) {
   const value = e.target.value
   const num = Number(value)
   emits('change', Number.isNaN(num) ? '' : num)
@@ -20,7 +20,7 @@ function handleChange (e: any) {
 </script>
 
 <template>
-  <input type="number" :value="value" @input="handleChange" />
+  <input type="number" :value="value" @input="handleChange">
 </template>
 
 <style scoped></style>

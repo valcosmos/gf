@@ -11,9 +11,8 @@ interface ContextProps {
 export function useContext() {
   const context = inject<ContextProps>(SchemaFormContextKey)
 
-  if (!context) {
+  if (!context)
     throw new Error('context is undefined')
-  }
 
   return context
 }

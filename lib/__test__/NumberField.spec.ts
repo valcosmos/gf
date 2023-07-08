@@ -8,10 +8,10 @@ describe('JSONSchemaForm', () => {
       props: {
         schema: {
           type: 'number',
-          title: 'Number'
+          title: 'Number',
         },
-        value
-      }
+        value,
+      },
     })
     const numberField = wrapper.findComponent(NumberField)
     expect(numberField.exists()).toBeTruthy()

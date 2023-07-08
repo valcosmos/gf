@@ -14,7 +14,7 @@ ajv.addKeyword('test', {
   validate(schema, data) {
     console.log(schema, data)
     return data === 'Cupid'
-  }
+  },
 })
 
 const schema = {
@@ -25,13 +25,13 @@ const schema = {
     pets: {
       type: 'array',
       items: {
-        type: 'string'
-      }
+        type: 'string',
+      },
     },
     isWorker: {
-      type: 'boolean'
-    }
-  }
+      type: 'boolean',
+    },
+  },
   // minLength: 10
 }
 
@@ -39,7 +39,7 @@ const data = {
   name: 'Cupid',
   age: 18,
   pets: ['cat', 'dog'],
-  isWorker: false
+  isWorker: false,
 }
 const valid = ajv.validate(schema, data)
 if (!valid) {

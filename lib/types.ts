@@ -7,7 +7,7 @@ export enum SchemaTypes {
   'STRING' = 'string',
   'OBJECT' = 'object',
   'ARRAY' = 'array',
-  'BOOLEAN' = 'boolean'
+  'BOOLEAN' = 'boolean',
 }
 
 export type SchemaItemType = typeof SchemaItem
@@ -54,9 +54,8 @@ export interface FieldProps {
   rootSchema: Schema
 }
 
-
-export interface CommonWidgetProps { 
-  value: any 
+export interface CommonWidgetProps {
+  value: any
 }
 
 export type CommonWidgetDefine = DefineComponent<CommonWidgetProps, {}, {}>
