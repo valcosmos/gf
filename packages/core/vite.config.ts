@@ -18,6 +18,13 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'gf',
     },
-
+    rollupOptions: {
+      external: ['vue'],
+      output: {
+        globals: {
+          vue: 'Vue',
+        },
+      },
+    },
   },
 })

@@ -1,7 +1,9 @@
 import Ajv from 'ajv'
 
 import jsonpointer from 'jsonpointer'
-import union from 'lodash.union'
+
+// import union from 'lodash.union'
+import { union } from 'lodash-es'
 import mergeAllOf from 'json-schema-merge-allof'
 import type { Schema } from './types'
 

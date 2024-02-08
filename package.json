@@ -3,24 +3,8 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "exports": {
-    ".": {
-      "import": "./dist/gf.js",
-      "require": "./dist/gf.umd.cjs"
-    }
-  },
-  "main": "./dist/gf.umd.cjs",
-  "files": ["dist"],
   "scripts": {
-    "dev": "vite",
-    "build": "run-p type-check build-only",
-    "preview": "vite preview",
-    "test:unit": "vitest",
-    "coverage": "vitest run --coverage",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "dev": "turbo dev"
   },
   "dependencies": {
     "ajv": "^8.12.0",
