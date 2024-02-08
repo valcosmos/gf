@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { NumberField, SchemaForm, StringField } from '..'
 
-describe('ObjectField', () => {
+describe('objectField', () => {
   it('should render correct number field', async () => {
     const wrapper = mount(SchemaForm, {
       props: {

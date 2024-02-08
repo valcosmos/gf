@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { NumberField, SchemaForm } from '..'
 
-describe('JSONSchemaForm', () => {
+describe('jSONSchemaForm', () => {
   it('should render correct number field', async () => {
     const value = ''
     const wrapper = mount(SchemaForm, {

@@ -1,7 +1,7 @@
 import { inject } from 'vue'
 import type { SchemaItemType, Theme } from './types'
 
-export const SchemaFormContextKey = Symbol()
+export const SchemaFormContextKey = Symbol('')
 
 interface ContextProps {
   SchemaItem: SchemaItemType

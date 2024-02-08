@@ -23,11 +23,11 @@ const retrievedSchemaRef = computed(() =>
 
 const currentComponent = computed(() => {
   let Component:
-  | typeof StringField
-  | typeof NumberField
-  | typeof ObjectField
-  | typeof ArrayField
-  | undefined
+    | typeof StringField
+    | typeof NumberField
+    | typeof ObjectField
+    | typeof ArrayField
+    | undefined
   switch (props.schema.type) {
     case SchemaTypes.STRING: {
       Component = StringField

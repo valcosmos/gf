@@ -9,7 +9,7 @@ const emits = defineEmits<SelectionEmitProps>()
 
 interface SelectionProps {
   value: any
-  options: Array<{ key: string; value: any }>
+  options: Array<{ key: string, value: any }>
 }
 
 type SelectionEmitProps = Omit<

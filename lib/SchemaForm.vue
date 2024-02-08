@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { provide, toRefs } from 'vue'
-import { type EmitProps, type Schema, type Theme } from './types'
+import type { EmitProps, Schema, Theme } from './types'
 import SchemaItem from './SchemaItem.vue'
 import { SchemaFormContextKey } from './context'
 

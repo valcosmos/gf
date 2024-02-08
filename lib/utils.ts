@@ -35,7 +35,7 @@ export function validateData(schema: any, data: any) {
 }
 
 // function resolveSchema(schema: any, data: any = {}) {}
-export function resolveSchema(schema: Schema, rootSchema = {}, formData = {}) {
+export function resolveSchema(schema: Schema, rootSchema = {}, formData = {}): any {
   if (hasOwnProperty(schema, '$ref')) {
     return resolveReference(schema, rootSchema, formData)
   }
@@ -391,7 +391,7 @@ export const guessType = function guessType(value: any) {
     return 'null'
   else if (typeof value === 'boolean')
     return 'boolean'
-  else if (!isNaN(value))
+  else if (!Number.isNaN(value))
     return 'number'
   else if (typeof value === 'object')
     return 'object'

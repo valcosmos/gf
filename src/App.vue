@@ -69,7 +69,7 @@ const handleUISchemaChange = (v: string) => handleCodeChange('uiSchema', v)
 const contextRef = ref()
 
 function validateForm() {
-  contextRef.value.doValidate().then((res: any) => {})
+  contextRef.value.doValidate().then(() => {})
 }
 </script>
 

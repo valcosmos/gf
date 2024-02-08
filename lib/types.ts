@@ -58,7 +58,7 @@ export interface CommonWidgetProps {
   value: any
 }
 
-export type CommonWidgetDefine = DefineComponent<CommonWidgetProps, {}, {}>
+export type CommonWidgetDefine = DefineComponent<CommonWidgetProps, object, object>
 
 export interface Theme {
   widgets: {

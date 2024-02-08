@@ -12,7 +12,6 @@ ajv.addFormat('test', (data) => {
 
 ajv.addKeyword('test', {
   validate(schema, data) {
-    console.log(schema, data)
     return data === 'Cupid'
   },
 })
@@ -42,7 +41,5 @@ const data = {
   isWorker: false,
 }
 const valid = ajv.validate(schema, data)
-if (!valid) {
+if (!valid)
   localize.zh(ajv.errors)
-  console.log(ajv.errors)
-}
