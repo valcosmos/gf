@@ -1,8 +1,16 @@
 {
-  "name": "json-schema-demo",
+  "name": "gf",
   "type": "module",
   "version": "0.0.0",
   "private": true,
+  "exports": {
+    ".": {
+      "import": "./dist/gf.js",
+      "require": "./dist/gf.umd.cjs"
+    }
+  },
+  "main": "./dist/gf.umd.cjs",
+  "files": ["dist"],
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
