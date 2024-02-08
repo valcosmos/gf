@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { EmitProps, FieldProps } from 'lib/types'
 import { toRefs } from 'vue'
+import type { EmitProps, FieldProps } from '../types'
 
 defineOptions({
   name: 'NumberField',
