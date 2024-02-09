@@ -36,8 +36,28 @@ export function validateData(schema: any, data: any) {
   }
 }
 
+// In the case where we have to implicitly create a schema, it is useful to know what type to use
+//  based on the data we are defining
+export function guessType(value: string) {
+  if (Array.isArray(value))
+    return 'array'
+  else if (typeof value === 'string')
+    return 'string'
+  else if (value == null)
+    return 'null'
+  else if (typeof value === 'boolean')
+    return 'boolean'
+  else if (!Number.isNaN(value))
+    return 'number'
+  else if (typeof value === 'object')
+    return 'object'
+
+  // Default to string if we can't figure it out
+  return 'string'
+}
+
 // function resolveSchema(schema: any, data: any = {}) {}
-export function resolveSchema(schema: Schema, rootSchema = {}, formData = {}): any {
+export function resolveSchema(schema: Schema, rootSchema: Schema, formData = {}): any {
   if (hasOwnProperty(schema, '$ref')) {
     return resolveReference(schema, rootSchema, formData)
   }
@@ -48,8 +68,8 @@ export function resolveSchema(schema: Schema, rootSchema = {}, formData = {}): a
   else if (hasOwnProperty(schema, 'allOf') && Array.isArray(schema.allOf)) {
     return {
       ...schema,
-      allOf: schema.allOf.map(allOfSubschema =>
-        retrieveSchema(allOfSubschema, rootSchema, formData),
+      allOf: schema.allOf.map(allOfSubSchema =>
+        retrieveSchema(allOfSubSchema, rootSchema, formData),
       ),
     }
   }
@@ -59,7 +79,7 @@ export function resolveSchema(schema: Schema, rootSchema = {}, formData = {}): a
   }
 }
 
-export function retrieveSchema(schema: any, rootSchema = {}, formData: any = {}): Schema {
+export function retrieveSchema(schema: any, rootSchema: Schema, formData: any = {}): Schema {
   if (!isObject(schema))
     return {} as Schema
 
@@ -76,13 +96,11 @@ export function retrieveSchema(schema: any, rootSchema = {}, formData: any = {})
     }
     catch (e) {
       console.warn(`could not merge subschemas in allOf:\n${e}`)
-      const { allOf, ...resolvedSchemaWithoutAllOf } = resolvedSchema
+      const { ...resolvedSchemaWithoutAllOf } = resolvedSchema
       return resolvedSchemaWithoutAllOf
     }
   }
-  const hasAdditionalProperties
-    = resolvedSchema.hasOwnProperty('additionalProperties')
-    && resolvedSchema.additionalProperties !== false
+  const hasAdditionalProperties = Object.prototype.hasOwnProperty.call(resolvedSchema, 'additionalProperties') && resolvedSchema.additionalProperties !== false
   if (hasAdditionalProperties) {
     // put formData existing additional properties into schema
     return stubExistingAdditionalProperties(resolvedSchema, rootSchema, formData)
@@ -92,11 +110,7 @@ export function retrieveSchema(schema: any, rootSchema = {}, formData: any = {})
 
 export const ADDITIONAL_PROPERTY_FLAG = '__additional_property'
 // This function will create new "properties" items for each key in our formData
-export function stubExistingAdditionalProperties(
-  schema: Schema,
-  rootSchema: Schema = {},
-  formData: any = {},
-) {
+export function stubExistingAdditionalProperties(schema: Schema, rootSchema: Schema, formData: any = {}) {
   // Clone the schema so we don't ruin the consumer's original
   schema = {
     ...schema,
@@ -104,20 +118,20 @@ export function stubExistingAdditionalProperties(
   }
 
   Object.keys(formData).forEach((key) => {
-    if ((schema as any).properties.hasOwnProperty(key)) {
+    if (hasOwnProperty((schema as any).properties, key)) {
       // No need to stub, our schema already has the property
       return
     }
 
     let additionalProperties
-    if (schema.additionalProperties.hasOwnProperty('$ref')) {
+    if (hasOwnProperty(schema.additionalProperties, '$ref')) {
       additionalProperties = retrieveSchema(
         { $ref: schema.additionalProperties.$ref },
         rootSchema,
         formData,
       )
     }
-    else if (schema.additionalProperties.hasOwnProperty('type')) {
+    else if (hasOwnProperty(schema.additionalProperties, 'type')) {
       additionalProperties = { ...schema.additionalProperties }
     }
     else {
@@ -150,7 +164,7 @@ function resolveReference(schema: any, rootSchema: any, formData: any): Schema {
   // Retrieve the referenced schema definition.
   const $refSchema = findSchemaDefinition(schema.$ref, rootSchema)
   // Drop the $ref property of the source schema.
-  const { $ref, ...localSchema } = schema
+  const { ...localSchema } = schema
   // Update referenced schema definition with local schema properties.
   return retrieveSchema({ ...$refSchema, ...localSchema }, rootSchema, formData)
 }
@@ -257,13 +271,7 @@ function withDependentSchema(
   return withExactlyOneSubschema(schema, rootSchema, formData, dependencyKey, resolvedOneOf)
 }
 
-function withExactlyOneSubschema(
-  schema: any,
-  rootSchema: any,
-  formData: any,
-  dependencyKey: any,
-  oneOf: any,
-) {
+function withExactlyOneSubschema(schema: any, rootSchema: any, formData: any, dependencyKey: any, oneOf: any) {
   const validSubschemas = oneOf.filter((subschema: any) => {
     if (!subschema.properties)
       return false
@@ -280,6 +288,7 @@ function withExactlyOneSubschema(
       const { errors } = validateData(conditionSchema, formData)
       return !errors || errors.length === 0
     }
+    return false
   })
   if (validSubschemas.length !== 1) {
     console.warn(
@@ -289,7 +298,8 @@ function withExactlyOneSubschema(
   }
   // debugger
   const subschema = validSubschemas[0]
-  const { [dependencyKey]: conditionPropertySchema, ...dependentSubschema } = subschema.properties
+  // const { [dependencyKey]: conditionPropertySchema, ...dependentSubschema } = subschema.properties
+  const { ...dependentSubschema } = subschema.properties
   const dependentSchema = { ...subschema, properties: dependentSubschema }
   return mergeSchemas(
     schema,
@@ -382,31 +392,11 @@ export function getSchemaType(schema: Schema): string | undefined {
   // }
 }
 
-// In the case where we have to implicitly create a schema, it is useful to know what type to use
-//  based on the data we are defining
-export const guessType = function guessType(value: any) {
-  if (Array.isArray(value))
-    return 'array'
-  else if (typeof value === 'string')
-    return 'string'
-  else if (value == null)
-    return 'null'
-  else if (typeof value === 'boolean')
-    return 'boolean'
-  else if (!Number.isNaN(value))
-    return 'number'
-  else if (typeof value === 'object')
-    return 'object'
-
-  // Default to string if we can't figure it out
-  return 'string'
-}
-
 export function isConstant(schema: Schema) {
-  return (Array.isArray(schema.enum) && schema.enum.length === 1) || schema.hasOwnProperty('const')
+  return (Array.isArray(schema.enum) && schema.enum.length === 1) || hasOwnProperty(schema, 'const')
 }
 
-export function isSelect(_schema: any, rootSchema: Schema = {}) {
+export function isSelect(_schema: any, rootSchema: Schema) {
   const schema = retrieveSchema(_schema, rootSchema)
   const altSchemas = schema.oneOf || schema.anyOf
   if (Array.isArray(schema.enum))
@@ -417,7 +407,7 @@ export function isSelect(_schema: any, rootSchema: Schema = {}) {
   return false
 }
 
-export function isMultiSelect(schema: Schema, rootSchema: Schema = {}) {
+export function isMultiSelect(schema: Schema, rootSchema: Schema) {
   if (!schema.uniqueItems || !schema.items)
     return false
 
@@ -464,7 +454,7 @@ export function getMatchingOption(
           shallowClone.allOf = shallowClone.allOf.slice()
         }
 
-        shallowClone.allOf.push(requiresAnyOf)
+        shallowClone.allOf.push(requiresAnyOf as any)
 
         augmentedSchema = shallowClone
       }

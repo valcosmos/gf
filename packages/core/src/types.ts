@@ -31,7 +31,9 @@ export interface Schema {
     [key: string]: string[] | Schema | SchemaRef
   }
   oneOf?: Schema[]
-
+  allOf?: Schema[]
+  anyOf?: Schema[]
+  uniqueItems?: Schema['items']
   required?: string[]
   enum?: any[]
   enumKeyValue?: any[]
